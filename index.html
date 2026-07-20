@@ -74,6 +74,14 @@
       box-shadow: 0 10px 30px rgba(70, 103, 136, 0.08);
     }
 
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 14px;
+      flex: 1;
+    }
+
     .brand {
       font-size: 0.95rem;
       letter-spacing: 0.08em;
@@ -98,6 +106,100 @@
       background: rgba(255, 255, 255, 0.72);
       color: var(--text);
       transform: translateY(-1px);
+    }
+
+    .search-shell {
+      position: relative;
+      width: min(280px, 100%);
+      flex: 0 1 280px;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(75, 112, 146, 0.14);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    }
+
+    .search-box svg {
+      width: 16px;
+      height: 16px;
+      color: var(--muted);
+      flex: 0 0 16px;
+    }
+
+    .search-input {
+      width: 100%;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: var(--text);
+      font: inherit;
+    }
+
+    .search-input::placeholder {
+      color: #7f93a7;
+    }
+
+    .search-results {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      width: 100%;
+      display: none;
+      padding: 10px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(75, 112, 146, 0.14);
+      box-shadow: 0 18px 40px rgba(70, 103, 136, 0.14);
+      backdrop-filter: blur(18px);
+      z-index: 20;
+    }
+
+    .search-results.is-visible {
+      display: grid;
+      gap: 8px;
+    }
+
+    .search-result-item {
+      display: block;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(246, 250, 255, 0.96), rgba(235, 245, 255, 0.88));
+      border: 1px solid transparent;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .search-result-item:hover {
+      transform: translateY(-1px);
+      border-color: rgba(110, 174, 219, 0.28);
+      box-shadow: 0 12px 24px rgba(70, 103, 136, 0.1);
+    }
+
+    .search-result-title {
+      display: block;
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    .search-result-text {
+      display: block;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .search-empty {
+      padding: 12px 14px;
+      border-radius: 16px;
+      color: var(--muted);
+      background: rgba(244, 249, 255, 0.88);
+      font-size: 0.92rem;
     }
 
     .hero {
@@ -169,22 +271,87 @@
     }
 
     .meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
       margin-bottom: 24px;
     }
 
-    .meta a,
-    .meta span {
+    .contact-button {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+      padding: 16px 18px;
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(236, 246, 255, 0.9));
+      border: 1px solid rgba(75, 112, 146, 0.14);
+      color: var(--text);
+      box-shadow: 0 10px 24px rgba(70, 103, 136, 0.08);
+      overflow: hidden;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+    }
+
+    .contact-button:hover {
+      transform: translateY(-3px);
+      border-color: rgba(110, 174, 219, 0.3);
+      box-shadow: 0 18px 34px rgba(70, 103, 136, 0.14);
+    }
+
+    .contact-button::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(110, 174, 219, 0.08), rgba(149, 200, 198, 0.05));
+      opacity: 0;
+      transition: opacity 0.22s ease;
+      pointer-events: none;
+    }
+
+    .contact-button:hover::after {
+      opacity: 1;
+    }
+
+    .contact-icon-wrap {
+      position: relative;
+      z-index: 1;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 12px 14px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.72);
-      border: 1px solid var(--line);
-      color: var(--text);
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(110, 174, 219, 0.14), rgba(149, 200, 198, 0.2));
+      color: #3f6f95;
+      flex: 0 0 42px;
+    }
+
+    .contact-button .button-icon {
+      width: 20px;
+      height: 20px;
+      flex: 0 0 20px;
+    }
+
+    .contact-content {
+      position: relative;
+      z-index: 1;
+      min-width: 0;
+      display: grid;
+      gap: 2px;
+    }
+
+    .contact-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .contact-text {
+      font-weight: 600;
+      line-height: 1.5;
+      word-break: break-word;
     }
 
     .actions {
@@ -371,12 +538,39 @@
     }
 
     .profile-item {
-      padding: 14px 16px;
-      border-radius: 16px;
+      display: grid;
+      gap: 8px;
+      padding: 16px 18px;
+      border-radius: 18px;
       background: rgba(255, 255, 255, 0.72);
       border: 1px solid var(--line);
       color: var(--text);
       word-break: break-word;
+    }
+
+    .profile-item-label {
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .profile-item-value {
+      font-weight: 600;
+      line-height: 1.6;
+    }
+
+    .profile-item-value a {
+      color: #3f6f95;
+      text-decoration: underline;
+      text-decoration-color: rgba(110, 174, 219, 0.35);
+      text-underline-offset: 4px;
+      transition: color 0.2s ease, text-decoration-color 0.2s ease;
+    }
+
+    .profile-item-value a:hover {
+      color: #2f5f84;
+      text-decoration-color: rgba(110, 174, 219, 0.7);
     }
 
     .section-title {
@@ -509,6 +703,13 @@
       opacity: 1;
     }
 
+    .search-target.is-highlighted,
+    .quick-link.is-highlighted {
+      scroll-margin-top: 96px;
+      box-shadow: 0 0 0 2px rgba(110, 174, 219, 0.25), var(--shadow);
+      transition: box-shadow 0.25s ease;
+    }
+
     @media (max-width: 980px) {
       .hero,
       .profile-grid {
@@ -521,6 +722,21 @@
 
       .quick-links {
         grid-template-columns: 1fr;
+      }
+
+      .meta {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar-right {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .search-shell {
+        width: 100%;
+        flex-basis: auto;
       }
     }
 
@@ -536,6 +752,10 @@
         padding: 16px;
         align-items: flex-start;
         flex-direction: column;
+      }
+
+      .nav {
+        width: 100%;
       }
 
       .intro,
@@ -554,6 +774,10 @@
       .button {
         width: 100%;
       }
+
+      .contact-button {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -561,71 +785,90 @@
   <div class="page">
     <header class="topbar">
       <div class="brand">Personal Homepage</div>
-      <nav class="nav">
-        <a href="#quote-of-day">Quote</a>
-        <a href="#about">About</a>
-        <a href="#blog">Blog</a>
-        <a href="#code">代码</a>
-        <a href="#notes">笔记</a>
-      </nav>
+      <div class="topbar-right">
+        <nav class="nav">
+          <a href="#quote-of-day">Quote</a>
+          <a href="#about">About</a>
+          <a href="#blog">Blog</a>
+          <a href="#code">代码</a>
+          <a href="#notes">笔记</a>
+        </nav>
+        <div class="search-shell">
+          <label class="search-box" for="site-search">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="7"></circle>
+              <path d="m20 20-3.5-3.5"></path>
+            </svg>
+            <input class="search-input" id="site-search" type="search" placeholder="搜索内容、版块或关键词">
+          </label>
+          <div class="search-results" id="search-results" aria-live="polite"></div>
+        </div>
+      </div>
     </header>
 
     <main>
-      <section class="card quote-banner" id="quote-of-day" aria-label="随机名言">
-        <div class="quote-banner-label">随机名言</div>
+      <section class="card quote-banner search-target" id="quote-of-day" aria-label="随机名言" data-search-title="Quote 名言" data-search-text="随机名言 每日一句 quote">
+        
         <blockquote class="quote-display">
           <span id="quote-text">正在加载名言...</span>
           <footer class="quote-author" id="quote-author">-</footer>
         </blockquote>
-        <div class="quote-tip">你可以直接编辑页面底部脚本中的 `quotes` 数组，自定义名言内容。</div>
+        
       </section>
 
       <section class="hero">
         <div class="card intro">
           <div class="eyebrow">欢迎来到我的主页</div>
-          <h1>你好，我是源远流长</h1>
+          <h2>你好，我是源远流长</h2>
           <p class="subtitle">
             这里是一段简短但有辨识度的开场介绍。你可以在这里写下自己的研究兴趣、关注的问题、
             当前在做的事情，或者一句你希望访问者快速记住你的话。
           </p>
 
           <div class="meta">
-            <span>姓名：源远流长</span>
-            <a href="mailto:your_email@example.com">邮箱：your_email@example.com</a>
-            <a class="social-link" href="https://github.com/your-github-id" target="_blank" rel="noreferrer">
-              <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
-                <path d="M12 .5a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58l-.02-2.03c-3.34.73-4.04-1.41-4.04-1.41-.55-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.72.08-.72 1.2.08 1.84 1.23 1.84 1.23 1.08 1.82 2.82 1.29 3.5.99.11-.77.42-1.29.76-1.59-2.67-.3-5.47-1.31-5.47-5.86 0-1.3.47-2.36 1.23-3.19-.12-.3-.53-1.52.12-3.16 0 0 1-.31 3.3 1.22a11.56 11.56 0 0 1 6 0c2.3-1.53 3.29-1.22 3.29-1.22.66 1.64.25 2.86.13 3.16.77.83 1.23 1.89 1.23 3.19 0 4.56-2.8 5.55-5.48 5.85.43.37.82 1.1.82 2.22l-.02 3.29c0 .32.22.7.83.58A12 12 0 0 0 12 .5Z"/>
-              </svg>
-              GitHub：your-github-id
+            
+            <a class="contact-button" href="mailto:221300003@smail.nju.edu.cn" aria-label="发送邮件到 221300003@smail.nju.edu.cn">
+              <span class="contact-icon-wrap">
+                <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 7h16v10H4z"></path>
+                  <path d="m4 8 8 6 8-6"></path>
+                </svg>
+              </span>
+              <span class="contact-content">
+                <span class="contact-label">Email</span>
+                <span class="contact-text">邮箱联系我</span>
+              </span>
             </a>
-            <a class="social-link" href="https://space.bilibili.com/your-bilibili-id" target="_blank" rel="noreferrer">
-              <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M7 4.5 9.8 7m6.4-2.5L13.4 7"/>
-                <path d="M6.2 7.2h11.6c1.8 0 3.2 1.4 3.2 3.2v6.4c0 1.8-1.4 3.2-3.2 3.2H6.2C4.4 20 3 18.6 3 16.8v-6.4c0-1.8 1.4-3.2 3.2-3.2Z"/>
-                <path d="M9.2 11.4v3.2m5.6-3.2v3.2"/>
-                <path d="M8.5 17h7"/>
-              </svg>
-              B站：your-bilibili-id
+            <a class="contact-button social-link" href="https://github.com/njuhesiyuan" target="_blank" rel="noreferrer" aria-label="访问 GitHub 主页">
+              <span class="contact-icon-wrap">
+                <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+                  <path d="M12 .5a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58l-.02-2.03c-3.34.73-4.04-1.41-4.04-1.41-.55-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.72.08-.72 1.2.08 1.84 1.23 1.84 1.23 1.08 1.82 2.82 1.29 3.5.99.11-.77.42-1.29.76-1.59-2.67-.3-5.47-1.31-5.47-5.86 0-1.3.47-2.36 1.23-3.19-.12-.3-.53-1.52.12-3.16 0 0 1-.31 3.3 1.22a11.56 11.56 0 0 1 6 0c2.3-1.53 3.29-1.22 3.29-1.22.66 1.64.25 2.86.13 3.16.77.83 1.23 1.89 1.23 3.19 0 4.56-2.8 5.55-5.48 5.85.43.37.82 1.1.82 2.22l-.02 3.29c0 .32.22.7.83.58A12 12 0 0 0 12 .5Z"/>
+                </svg>
+              </span>
+              <span class="contact-content">
+                <span class="contact-label">GitHub</span>
+                <span class="contact-text">查看代码与项目</span>
+              </span>
+            </a>
+            <a class="contact-button social-link" href="https://space.bilibili.com/1954653421" target="_blank" rel="noreferrer" aria-label="访问 B 站主页">
+              <span class="contact-icon-wrap">
+                <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 4.5 9.8 7m6.4-2.5L13.4 7"/>
+                  <path d="M6.2 7.2h11.6c1.8 0 3.2 1.4 3.2 3.2v6.4c0 1.8-1.4 3.2-3.2 3.2H6.2C4.4 20 3 18.6 3 16.8v-6.4c0-1.8 1.4-3.2 3.2-3.2Z"/>
+                  <path d="M9.2 11.4v3.2m5.6-3.2v3.2"/>
+                  <path d="M8.5 17h7"/>
+                </svg>
+              </span>
+              <span class="contact-content">
+                <span class="contact-label">Bilibili</span>
+                <span class="contact-text">观看视频与动态</span>
+              </span>
             </a>
           </div>
 
           <div class="actions">
             <a class="button primary" href="#about">查看介绍</a>
-            <a class="button secondary social-link" href="https://github.com/your-github-id" target="_blank" rel="noreferrer">
-              <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
-                <path d="M12 .5a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58l-.02-2.03c-3.34.73-4.04-1.41-4.04-1.41-.55-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.72.08-.72 1.2.08 1.84 1.23 1.84 1.23 1.08 1.82 2.82 1.29 3.5.99.11-.77.42-1.29.76-1.59-2.67-.3-5.47-1.31-5.47-5.86 0-1.3.47-2.36 1.23-3.19-.12-.3-.53-1.52.12-3.16 0 0 1-.31 3.3 1.22a11.56 11.56 0 0 1 6 0c2.3-1.53 3.29-1.22 3.29-1.22.66 1.64.25 2.86.13 3.16.77.83 1.23 1.89 1.23 3.19 0 4.56-2.8 5.55-5.48 5.85.43.37.82 1.1.82 2.22l-.02 3.29c0 .32.22.7.83.58A12 12 0 0 0 12 .5Z"/>
-              </svg>
-              访问 GitHub
-            </a>
-            <a class="button secondary social-link" href="https://space.bilibili.com/your-bilibili-id" target="_blank" rel="noreferrer">
-              <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M7 4.5 9.8 7m6.4-2.5L13.4 7"/>
-                <path d="M6.2 7.2h11.6c1.8 0 3.2 1.4 3.2 3.2v6.4c0 1.8-1.4 3.2-3.2 3.2H6.2C4.4 20 3 18.6 3 16.8v-6.4c0-1.8 1.4-3.2 3.2-3.2Z"/>
-                <path d="M9.2 11.4v3.2m5.6-3.2v3.2"/>
-                <path d="M8.5 17h7"/>
-              </svg>
-              访问 B 站
-            </a>
+        
           </div>
         </div>
 
@@ -642,31 +885,38 @@
         </aside>
       </section>
 
-      <section class="profile-grid" id="about">
+      <section class="profile-grid search-target" id="about" data-search-title="About 自我介绍" data-search-text="自我介绍 个人信息 研究方向 学习背景 项目 兴趣 联系方式">
         <aside class="card profile-card">
           <div class="avatar-wrap">
             <img
               class="avatar"
-              src="https://placehold.co/320x320/f6efe4/7a6e62?text=Avatar"
+              src="头像.jpg"
               alt="你的头像"
             >
           </div>
           <h2 class="profile-name">源远流长</h2>
-          <p class="profile-role">这里可以写你的身份，例如：学生 / 研究者 / 开发者 / 设计爱好者。</p>
+          <p class="profile-role">Student in NJUAI Atol-lab</p>
 
           <div class="profile-list">
-            <div class="profile-item">邮箱：your_email@example.com</div>
             <div class="profile-item">
-              GitHub：
-              <a href="https://github.com/your-github-id" target="_blank" rel="noreferrer">
-                github.com/your-github-id
-              </a>
+              <div class="profile-item-label">邮箱</div>
+              <div class="profile-item-value">221300003@smail.nju.edu.cn</div>
             </div>
             <div class="profile-item">
-              B站：
-              <a href="https://space.bilibili.com/your-bilibili-id" target="_blank" rel="noreferrer">
-                space.bilibili.com/your-bilibili-id
-              </a>
+              <div class="profile-item-label">GitHub</div>
+              <div class="profile-item-value">
+                <a href="https://github.com/njuhesiyuan" target="_blank" rel="noreferrer">
+                  github.com/njuhesiyuan
+                </a>
+              </div>
+            </div>
+            <div class="profile-item">
+              <div class="profile-item-label">Bilibili</div>
+              <div class="profile-item-value">
+                <a href="https://space.bilibili.com/1954653421" target="_blank" rel="noreferrer">
+                  space.bilibili.com/1954653421
+                </a>
+              </div>
             </div>
           </div>
         </aside>
@@ -685,20 +935,20 @@
         </div>
       </section>
 
-      <section class="card links-card">
+      <section class="card links-card search-target" data-search-title="更多内容 More" data-search-text="更多内容 博客 代码 笔记 blog code notes">
         <h2 class="section-title">更多内容</h2>
         <div class="quick-links">
-          <a class="quick-link" id="blog" href="#blog">
+          <a class="quick-link" id="blog" href="#blog" data-search-title="Blog 博客" data-search-text="博客 blog 文章 记录">
             <h3>Blog</h3>
             <p>预留给博客入口。后续可以替换成博客列表页或外部博客地址。</p>
           </a>
 
-          <a class="quick-link" id="code" href="#code">
+          <a class="quick-link" id="code" href="#code" data-search-title="代码 Code" data-search-text="代码 code 项目 github 仓库">
             <h3>代码</h3>
             <p>预留给项目与代码展示。适合放 GitHub 仓库、作品集或项目摘要。</p>
           </a>
 
-          <a class="quick-link" id="notes" href="#notes">
+          <a class="quick-link" id="notes" href="#notes" data-search-title="笔记 Notes" data-search-text="笔记 notes 学习 阅读 技术整理">
             <h3>笔记</h3>
             <p>预留给学习笔记、阅读记录或技术整理内容。</p>
           </a>
@@ -715,7 +965,7 @@
       { text: "康神开播了，真的假的？我去真开播了！", author: "cxy" },
       { text: "我没胖，我真的没胖。", author: "zmjjkk" },
       { text: "都是同龄人我原本没想降维打击！", author: "zmjjkk" },
-      { text: "我从山中来，带着兰花草！.", author: "兰花草" },
+      { text: "我从山中来，带着兰花草！", author: "兰花草" },
       { text: "康康Let's go!", author: "jieni7" },
       { text: "喜欢我的战斗脸吗!", author: "zmjjkk" }
     ];
@@ -728,6 +978,89 @@
       const selected = quotes[index];
       quoteText.textContent = selected.text;
       quoteAuthor.textContent = "—— " + selected.author;
+    }
+
+    const searchInput = document.getElementById("site-search");
+    const searchResults = document.getElementById("search-results");
+    const searchTargets = Array.from(document.querySelectorAll("[data-search-title]"));
+
+    function clearHighlights() {
+      document.querySelectorAll(".search-target.is-highlighted, .quick-link.is-highlighted").forEach((item) => {
+        item.classList.remove("is-highlighted");
+      });
+    }
+
+    function openSearchResults(items, keyword) {
+      if (!keyword) {
+        searchResults.classList.remove("is-visible");
+        searchResults.innerHTML = "";
+        return;
+      }
+
+      if (!items.length) {
+        searchResults.innerHTML = '<div class="search-empty">没有找到相关内容，可以试试“项目”“笔记”“GitHub”等关键词。</div>';
+        searchResults.classList.add("is-visible");
+        return;
+      }
+
+      searchResults.innerHTML = items.map((item) => `
+        <a class="search-result-item" href="#${item.id}" data-target="${item.id}">
+          <span class="search-result-title">${item.title}</span>
+          <span class="search-result-text">${item.text}</span>
+        </a>
+      `).join("");
+      searchResults.classList.add("is-visible");
+    }
+
+    const searchIndex = searchTargets.map((node) => ({
+      id: node.id,
+      title: node.dataset.searchTitle || "页面内容",
+      text: node.dataset.searchText || node.textContent.replace(/\s+/g, " ").trim().slice(0, 80),
+      node
+    })).filter((item) => item.id);
+
+    if (searchInput && searchResults) {
+      searchInput.addEventListener("input", (event) => {
+        const keyword = event.target.value.trim().toLowerCase();
+        clearHighlights();
+
+        if (!keyword) {
+          openSearchResults([], "");
+          return;
+        }
+
+        const matches = searchIndex.filter((item) => {
+          const haystack = `${item.title} ${item.text}`.toLowerCase();
+          return haystack.includes(keyword);
+        }).slice(0, 6);
+
+        openSearchResults(matches, keyword);
+      });
+
+      searchResults.addEventListener("click", (event) => {
+        const target = event.target.closest("[data-target]");
+        if (!target) return;
+
+        event.preventDefault();
+        const id = target.dataset.target;
+        const node = document.getElementById(id);
+        if (!node) return;
+
+        clearHighlights();
+        node.classList.add("is-highlighted");
+        node.scrollIntoView({ behavior: "smooth", block: "start" });
+        searchResults.classList.remove("is-visible");
+
+        window.setTimeout(() => {
+          node.classList.remove("is-highlighted");
+        }, 2200);
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!event.target.closest(".search-shell")) {
+          searchResults.classList.remove("is-visible");
+        }
+      });
     }
   </script>
 </body>
