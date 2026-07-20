@@ -1,35 +1,586 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>你的名字</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>你的名字 | Personal Homepage</title>
   <style>
+    :root {
+      --bg: #f7f4ee;
+      --bg-soft: #fffaf2;
+      --panel: rgba(255, 255, 255, 0.78);
+      --panel-strong: rgba(255, 255, 255, 0.92);
+      --text: #2b2a28;
+      --muted: #6d685f;
+      --line: rgba(98, 86, 67, 0.14);
+      --accent: #d9866b;
+      --accent-2: #8eb7b1;
+      --shadow: 0 18px 50px rgba(98, 86, 67, 0.12);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --content-width: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      font-family: sans-serif;
-      max-width: 720px;
-      margin: 60px auto;
-      padding: 0 20px;
+      margin: 0;
+      font-family: "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(217, 134, 107, 0.18), transparent 28%),
+        radial-gradient(circle at top right, rgba(142, 183, 177, 0.18), transparent 24%),
+        linear-gradient(180deg, #fcfaf6 0%, #f7f4ee 45%, #f3efe7 100%);
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .page {
+      width: min(calc(100% - 32px), var(--content-width));
+      margin: 0 auto;
+      padding: 28px 0 56px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 26px;
+      padding: 14px 18px;
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      border-radius: 999px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 10px 30px rgba(98, 86, 67, 0.08);
+    }
+
+    .brand {
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: var(--muted);
+      transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+
+    .nav a:hover {
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--text);
+      transform: translateY(-1px);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px;
+      align-items: stretch;
+      margin-bottom: 26px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .intro {
+      padding: 34px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .intro::after {
+      content: "";
+      position: absolute;
+      right: -60px;
+      bottom: -60px;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(142, 183, 177, 0.2), transparent 68%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      margin-bottom: 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.68);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2.2rem, 5vw, 4.3rem);
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+    }
+
+    .subtitle {
+      margin: 0 0 22px;
+      font-size: 1.04rem;
+      line-height: 1.8;
+      color: var(--muted);
+      max-width: 60ch;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .meta a,
+    .meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--line);
+      color: var(--text);
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-width: 140px;
+      padding: 14px 18px;
+      border-radius: 999px;
+      font-weight: 600;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    }
+
+    .button.primary {
+      color: #fffaf5;
+      background: linear-gradient(135deg, var(--accent), #e7a181);
+      box-shadow: 0 12px 30px rgba(217, 134, 107, 0.3);
+    }
+
+    .button.secondary {
+      background: rgba(255, 255, 255, 0.76);
+      border: 1px solid var(--line);
+      color: var(--text);
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .visual {
+      position: relative;
+      padding: 24px;
+      overflow: hidden;
+      display: flex;
+      align-items: stretch;
+      min-height: 420px;
+      background:
+        linear-gradient(180deg, rgba(255, 250, 242, 0.95), rgba(255, 255, 255, 0.86)),
+        radial-gradient(circle at top left, rgba(217, 134, 107, 0.16), transparent 36%),
+        radial-gradient(circle at bottom right, rgba(142, 183, 177, 0.18), transparent 32%);
+    }
+
+    .visual-frame {
+      position: relative;
+      width: 100%;
+      border-radius: 24px;
+      background: var(--panel-strong);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    }
+
+    .visual-placeholder {
+      width: min(100%, 420px);
+      aspect-ratio: 1 / 1;
+      border-radius: 26px;
+      padding: 22px;
+      background:
+        linear-gradient(135deg, rgba(217, 134, 107, 0.14), rgba(142, 183, 177, 0.18)),
+        #fffdf9;
+      border: 1px dashed rgba(109, 104, 95, 0.22);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .visual-tag {
+      align-self: flex-start;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.82);
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .visual-illustration {
+      flex: 1;
+      border-radius: 20px;
+      background:
+        radial-gradient(circle at 22% 24%, rgba(217, 134, 107, 0.45), transparent 16%),
+        radial-gradient(circle at 76% 30%, rgba(142, 183, 177, 0.5), transparent 20%),
+        radial-gradient(circle at 52% 72%, rgba(243, 198, 132, 0.48), transparent 22%),
+        linear-gradient(160deg, #fffdfa, #f6efe4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .visual-illustration::before,
+    .visual-illustration::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      opacity: 0.8;
+    }
+
+    .visual-illustration::before {
+      width: 180px;
+      height: 180px;
+      right: -24px;
+      bottom: -18px;
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .visual-illustration::after {
+      width: 96px;
+      height: 96px;
+      left: 18px;
+      bottom: 16px;
+      background: rgba(255, 255, 255, 0.65);
+    }
+
+    .visual-note {
+      color: var(--muted);
+      font-size: 0.95rem;
       line-height: 1.7;
     }
-    h1 { margin-bottom: 8px; }
-    .muted { color: #666; }
+
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 24px;
+      margin-bottom: 26px;
+    }
+
+    .profile-card,
+    .about-card,
+    .links-card {
+      padding: 28px;
+    }
+
+    .avatar-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .avatar {
+      width: 150px;
+      height: 150px;
+      border-radius: 32px;
+      object-fit: cover;
+      background:
+        linear-gradient(135deg, rgba(217, 134, 107, 0.18), rgba(142, 183, 177, 0.2)),
+        #fff;
+      padding: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      box-shadow: 0 14px 36px rgba(98, 86, 67, 0.14);
+    }
+
+    .profile-name {
+      margin: 0 0 8px;
+      text-align: center;
+      font-size: 1.55rem;
+    }
+
+    .profile-role {
+      margin: 0 0 22px;
+      text-align: center;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .profile-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .profile-item {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--line);
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .section-title {
+      margin: 0 0 14px;
+      font-size: 1.25rem;
+    }
+
+    .about-text {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.9;
+      font-size: 1rem;
+    }
+
+    .quick-links {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .quick-link {
+      padding: 20px;
+      border-radius: 20px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.65));
+      border: 1px solid var(--line);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .quick-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 34px rgba(98, 86, 67, 0.12);
+      border-color: rgba(217, 134, 107, 0.28);
+    }
+
+    .quick-link h3 {
+      margin: 0 0 8px;
+      font-size: 1.08rem;
+    }
+
+    .quick-link p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    .footer {
+      margin-top: 8px;
+      padding: 18px 4px 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      text-align: center;
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .profile-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .visual {
+        min-height: 340px;
+      }
+
+      .quick-links {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        width: min(calc(100% - 20px), var(--content-width));
+        padding-top: 18px;
+        padding-bottom: 40px;
+      }
+
+      .topbar {
+        border-radius: 28px;
+        padding: 16px;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .intro,
+      .visual,
+      .profile-card,
+      .about-card,
+      .links-card {
+        padding: 22px;
+      }
+
+      .meta,
+      .actions {
+        flex-direction: column;
+      }
+
+      .button {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
-  <h1>你好，我是你的名字</h1>
-  <p class="muted">这是我的个人主页。</p>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">Personal Homepage</div>
+      <nav class="nav">
+        <a href="#about">About</a>
+        <a href="#blog">Blog</a>
+        <a href="#code">代码</a>
+        <a href="#notes">笔记</a>
+      </nav>
+    </header>
 
-  <h2>关于我</h2>
-  <p>这里写你的研究方向、职业背景或个人介绍。</p>
+    <main>
+      <section class="hero">
+        <div class="card intro">
+          <div class="eyebrow">欢迎来到我的主页</div>
+          <h1>你好，我是你的名字</h1>
+          <p class="subtitle">
+            这里是一段简短但有辨识度的开场介绍。你可以在这里写下自己的研究兴趣、关注的问题、
+            当前在做的事情，或者一句你希望访问者快速记住你的话。
+          </p>
 
-  <h2>项目</h2>
-  <ul>
-    <li>项目 A</li>
-    <li>项目 B</li>
-  </ul>
+          <div class="meta">
+            <span>姓名：你的名字</span>
+            <a href="mailto:your_email@example.com">邮箱：your_email@example.com</a>
+            <a href="https://github.com/your-github-id" target="_blank" rel="noreferrer">GitHub：your-github-id</a>
+          </div>
 
-  <h2>联系方式</h2>
-  <p>Email: your@email.com</p>
+          <div class="actions">
+            <a class="button primary" href="#about">查看介绍</a>
+            <a class="button secondary" href="https://github.com/your-github-id" target="_blank" rel="noreferrer">访问 GitHub</a>
+          </div>
+        </div>
+
+        <aside class="card visual" aria-label="插图区">
+          <div class="visual-frame">
+            <div class="visual-placeholder">
+              <div class="visual-tag">可替换插图区域</div>
+              <div class="visual-illustration"></div>
+              <p class="visual-note">
+                你可以把这里替换成自己的插图、摄影、设计作品，或者一张有个人风格的封面图。
+              </p>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="profile-grid" id="about">
+        <aside class="card profile-card">
+          <div class="avatar-wrap">
+            <img
+              class="avatar"
+              src="https://placehold.co/320x320/f6efe4/7a6e62?text=Avatar"
+              alt="你的头像"
+            >
+          </div>
+          <h2 class="profile-name">你的名字</h2>
+          <p class="profile-role">这里可以写你的身份，例如：学生 / 研究者 / 开发者 / 设计爱好者。</p>
+
+          <div class="profile-list">
+            <div class="profile-item">邮箱：your_email@example.com</div>
+            <div class="profile-item">
+              GitHub：
+              <a href="https://github.com/your-github-id" target="_blank" rel="noreferrer">
+                github.com/your-github-id
+              </a>
+            </div>
+          </div>
+        </aside>
+
+        <div class="card about-card">
+          <h2 class="section-title">自我介绍</h2>
+          <p class="about-text">
+            这里预留给你的主体介绍内容。你可以写自己的学习或工作背景、感兴趣的研究方向、正在做的项目，
+            也可以写一些更个人化的内容，比如你关心的问题、喜欢的技术栈，或者希望通过这个主页传达的气质。
+            这一段建议控制在两到四个自然段之间，读起来会更舒适。
+          </p>
+          <p class="about-text" style="margin-top: 16px;">
+            如果你之后需要更完整的主页结构，可以继续扩展为论文列表、项目展示、简历下载、博客归档，
+            但第一版保持克制通常更合适。
+          </p>
+        </div>
+      </section>
+
+      <section class="card links-card">
+        <h2 class="section-title">更多内容</h2>
+        <div class="quick-links">
+          <a class="quick-link" id="blog" href="#blog">
+            <h3>Blog</h3>
+            <p>预留给博客入口。后续可以替换成博客列表页或外部博客地址。</p>
+          </a>
+
+          <a class="quick-link" id="code" href="#code">
+            <h3>代码</h3>
+            <p>预留给项目与代码展示。适合放 GitHub 仓库、作品集或项目摘要。</p>
+          </a>
+
+          <a class="quick-link" id="notes" href="#notes">
+            <h3>笔记</h3>
+            <p>预留给学习笔记、阅读记录或技术整理内容。</p>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>© 2026 你的名字. Built with GitHub Pages.</p>
+    </footer>
+  </div>
 </body>
 </html>
+
+
