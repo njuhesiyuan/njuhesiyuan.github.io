@@ -6,16 +6,18 @@
   <title>你的名字 | Personal Homepage</title>
   <style>
     :root {
-      --bg: #f7f4ee;
-      --bg-soft: #fffaf2;
+      --bg: #eef6ff;
+      --bg-soft: #f7fbff;
       --panel: rgba(255, 255, 255, 0.78);
       --panel-strong: rgba(255, 255, 255, 0.92);
-      --text: #2b2a28;
-      --muted: #6d685f;
-      --line: rgba(98, 86, 67, 0.14);
-      --accent: #d9866b;
-      --accent-2: #8eb7b1;
-      --shadow: 0 18px 50px rgba(98, 86, 67, 0.12);
+      --text: #203042;
+      --muted: #607387;
+      --line: rgba(75, 112, 146, 0.16);
+      --accent: #6eaedb;
+      --accent-2: #95c8c6;
+      --accent-3: #b7d9f4;
+      --accent-4: #dff0ff;
+      --shadow: 0 18px 50px rgba(70, 103, 136, 0.12);
       --radius-xl: 28px;
       --radius-lg: 20px;
       --radius-md: 14px;
@@ -35,9 +37,10 @@
       font-family: "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at top left, rgba(217, 134, 107, 0.18), transparent 28%),
-        radial-gradient(circle at top right, rgba(142, 183, 177, 0.18), transparent 24%),
-        linear-gradient(180deg, #fcfaf6 0%, #f7f4ee 45%, #f3efe7 100%);
+        radial-gradient(circle at top left, rgba(110, 174, 219, 0.24), transparent 28%),
+        radial-gradient(circle at top right, rgba(149, 200, 198, 0.18), transparent 24%),
+        radial-gradient(circle at 50% 120%, rgba(183, 217, 244, 0.24), transparent 34%),
+        linear-gradient(180deg, #fbfdff 0%, #eef6ff 42%, #e4f0fb 100%);
       min-height: 100vh;
     }
 
@@ -68,7 +71,7 @@
       border: 1px solid rgba(255, 255, 255, 0.55);
       border-radius: 999px;
       backdrop-filter: blur(14px);
-      box-shadow: 0 10px 30px rgba(98, 86, 67, 0.08);
+      box-shadow: 0 10px 30px rgba(70, 103, 136, 0.08);
     }
 
     .brand {
@@ -126,7 +129,7 @@
       bottom: -60px;
       width: 180px;
       height: 180px;
-      background: radial-gradient(circle, rgba(142, 183, 177, 0.2), transparent 68%);
+      background: radial-gradient(circle, rgba(149, 200, 198, 0.2), transparent 68%);
       pointer-events: none;
     }
 
@@ -204,18 +207,24 @@
 
     .button.primary {
       color: #fffaf5;
-      background: linear-gradient(135deg, var(--accent), #e7a181);
-      box-shadow: 0 12px 30px rgba(217, 134, 107, 0.3);
+      background: linear-gradient(135deg, #63a6d7, #8fc3ea 55%, #a8d6f3);
+      box-shadow: 0 12px 30px rgba(110, 174, 219, 0.3);
     }
 
     .button.secondary {
-      background: rgba(255, 255, 255, 0.76);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(240, 248, 255, 0.88));
       border: 1px solid var(--line);
       color: var(--text);
     }
 
     .button:hover {
       transform: translateY(-2px);
+    }
+
+    .button-icon {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 18px;
     }
 
     .visual {
@@ -226,9 +235,10 @@
       align-items: stretch;
       min-height: 420px;
       background:
-        linear-gradient(180deg, rgba(255, 250, 242, 0.95), rgba(255, 255, 255, 0.86)),
-        radial-gradient(circle at top left, rgba(217, 134, 107, 0.16), transparent 36%),
-        radial-gradient(circle at bottom right, rgba(142, 183, 177, 0.18), transparent 32%);
+        linear-gradient(180deg, rgba(248, 251, 255, 0.96), rgba(255, 255, 255, 0.88)),
+        radial-gradient(circle at top left, rgba(110, 174, 219, 0.2), transparent 36%),
+        radial-gradient(circle at bottom right, rgba(149, 200, 198, 0.2), transparent 32%),
+        radial-gradient(circle at 80% 80%, rgba(183, 217, 244, 0.16), transparent 26%);
     }
 
     .visual-frame {
@@ -250,7 +260,7 @@
       border-radius: 26px;
       padding: 22px;
       background:
-        linear-gradient(135deg, rgba(217, 134, 107, 0.14), rgba(142, 183, 177, 0.18)),
+        linear-gradient(135deg, rgba(110, 174, 219, 0.16), rgba(149, 200, 198, 0.18)),
         #fffdf9;
       border: 1px dashed rgba(109, 104, 95, 0.22);
       display: flex;
@@ -272,10 +282,10 @@
       flex: 1;
       border-radius: 20px;
       background:
-        radial-gradient(circle at 22% 24%, rgba(217, 134, 107, 0.45), transparent 16%),
-        radial-gradient(circle at 76% 30%, rgba(142, 183, 177, 0.5), transparent 20%),
-        radial-gradient(circle at 52% 72%, rgba(243, 198, 132, 0.48), transparent 22%),
-        linear-gradient(160deg, #fffdfa, #f6efe4);
+        radial-gradient(circle at 22% 24%, rgba(110, 174, 219, 0.45), transparent 16%),
+        radial-gradient(circle at 76% 30%, rgba(149, 200, 198, 0.5), transparent 20%),
+        radial-gradient(circle at 52% 72%, rgba(178, 214, 242, 0.52), transparent 22%),
+        linear-gradient(160deg, #fcfeff, #eef6ff);
       position: relative;
       overflow: hidden;
     }
@@ -335,11 +345,11 @@
       border-radius: 32px;
       object-fit: cover;
       background:
-        linear-gradient(135deg, rgba(217, 134, 107, 0.18), rgba(142, 183, 177, 0.2)),
+        linear-gradient(135deg, rgba(110, 174, 219, 0.18), rgba(149, 200, 198, 0.2)),
         #fff;
       padding: 8px;
       border: 1px solid rgba(255, 255, 255, 0.72);
-      box-shadow: 0 14px 36px rgba(98, 86, 67, 0.14);
+      box-shadow: 0 14px 36px rgba(70, 103, 136, 0.14);
     }
 
     .profile-name {
@@ -392,15 +402,15 @@
       padding: 20px;
       border-radius: 20px;
       background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.65));
+        linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(235, 245, 255, 0.7));
       border: 1px solid var(--line);
       transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
     }
 
     .quick-link:hover {
       transform: translateY(-3px);
-      box-shadow: 0 16px 34px rgba(98, 86, 67, 0.12);
-      border-color: rgba(217, 134, 107, 0.28);
+      box-shadow: 0 16px 34px rgba(70, 103, 136, 0.12);
+      border-color: rgba(110, 174, 219, 0.28);
     }
 
     .quick-link h3 {
@@ -415,12 +425,88 @@
       font-size: 0.95rem;
     }
 
+    .quote-banner {
+      position: relative;
+      margin-bottom: 26px;
+      padding: 28px 32px;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(236, 246, 255, 0.86)),
+        radial-gradient(circle at right top, rgba(110, 174, 219, 0.16), transparent 30%);
+    }
+
+    .quote-banner::before {
+      content: "";
+      position: absolute;
+      inset: auto 28px 18px auto;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(183, 217, 244, 0.28), transparent 68%);
+      pointer-events: none;
+    }
+
+    .quote-banner-label {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.78);
+      color: var(--muted);
+      font-size: 0.88rem;
+      letter-spacing: 0.04em;
+    }
+
+    .quote-display {
+      margin: 0;
+      font-family: "STKaiti", "KaiTi", "Kaiti SC", "FangSong", serif;
+      font-size: clamp(1.45rem, 2.7vw, 2.35rem);
+      line-height: 1.8;
+      color: #2e4661;
+      letter-spacing: 0.04em;
+    }
+
+    .quote-display span {
+      display: block;
+    }
+
+    .quote-author {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .quote-tip {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
     .footer {
       margin-top: 8px;
       padding: 18px 4px 0;
       color: var(--muted);
       font-size: 0.95rem;
       text-align: center;
+    }
+
+    .social-link {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .social-link::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(110, 174, 219, 0.08), rgba(149, 200, 198, 0.04));
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+    }
+
+    .social-link:hover::after {
+      opacity: 1;
     }
 
     @media (max-width: 980px) {
@@ -476,6 +562,7 @@
     <header class="topbar">
       <div class="brand">Personal Homepage</div>
       <nav class="nav">
+        <a href="#quote-of-day">Quote</a>
         <a href="#about">About</a>
         <a href="#blog">Blog</a>
         <a href="#code">代码</a>
@@ -484,6 +571,15 @@
     </header>
 
     <main>
+      <section class="card quote-banner" id="quote-of-day" aria-label="随机名言">
+        <div class="quote-banner-label">随机名言</div>
+        <blockquote class="quote-display">
+          <span id="quote-text">正在加载名言...</span>
+          <footer class="quote-author" id="quote-author">-</footer>
+        </blockquote>
+        <div class="quote-tip">你可以直接编辑页面底部脚本中的 `quotes` 数组，自定义名言内容。</div>
+      </section>
+
       <section class="hero">
         <div class="card intro">
           <div class="eyebrow">欢迎来到我的主页</div>
@@ -496,12 +592,40 @@
           <div class="meta">
             <span>姓名：你的名字</span>
             <a href="mailto:your_email@example.com">邮箱：your_email@example.com</a>
-            <a href="https://github.com/your-github-id" target="_blank" rel="noreferrer">GitHub：your-github-id</a>
+            <a class="social-link" href="https://github.com/your-github-id" target="_blank" rel="noreferrer">
+              <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+                <path d="M12 .5a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58l-.02-2.03c-3.34.73-4.04-1.41-4.04-1.41-.55-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.72.08-.72 1.2.08 1.84 1.23 1.84 1.23 1.08 1.82 2.82 1.29 3.5.99.11-.77.42-1.29.76-1.59-2.67-.3-5.47-1.31-5.47-5.86 0-1.3.47-2.36 1.23-3.19-.12-.3-.53-1.52.12-3.16 0 0 1-.31 3.3 1.22a11.56 11.56 0 0 1 6 0c2.3-1.53 3.29-1.22 3.29-1.22.66 1.64.25 2.86.13 3.16.77.83 1.23 1.89 1.23 3.19 0 4.56-2.8 5.55-5.48 5.85.43.37.82 1.1.82 2.22l-.02 3.29c0 .32.22.7.83.58A12 12 0 0 0 12 .5Z"/>
+              </svg>
+              GitHub：your-github-id
+            </a>
+            <a class="social-link" href="https://space.bilibili.com/your-bilibili-id" target="_blank" rel="noreferrer">
+              <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 4.5 9.8 7m6.4-2.5L13.4 7"/>
+                <path d="M6.2 7.2h11.6c1.8 0 3.2 1.4 3.2 3.2v6.4c0 1.8-1.4 3.2-3.2 3.2H6.2C4.4 20 3 18.6 3 16.8v-6.4c0-1.8 1.4-3.2 3.2-3.2Z"/>
+                <path d="M9.2 11.4v3.2m5.6-3.2v3.2"/>
+                <path d="M8.5 17h7"/>
+              </svg>
+              B站：your-bilibili-id
+            </a>
           </div>
 
           <div class="actions">
             <a class="button primary" href="#about">查看介绍</a>
-            <a class="button secondary" href="https://github.com/your-github-id" target="_blank" rel="noreferrer">访问 GitHub</a>
+            <a class="button secondary social-link" href="https://github.com/your-github-id" target="_blank" rel="noreferrer">
+              <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+                <path d="M12 .5a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58l-.02-2.03c-3.34.73-4.04-1.41-4.04-1.41-.55-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.72.08-.72 1.2.08 1.84 1.23 1.84 1.23 1.08 1.82 2.82 1.29 3.5.99.11-.77.42-1.29.76-1.59-2.67-.3-5.47-1.31-5.47-5.86 0-1.3.47-2.36 1.23-3.19-.12-.3-.53-1.52.12-3.16 0 0 1-.31 3.3 1.22a11.56 11.56 0 0 1 6 0c2.3-1.53 3.29-1.22 3.29-1.22.66 1.64.25 2.86.13 3.16.77.83 1.23 1.89 1.23 3.19 0 4.56-2.8 5.55-5.48 5.85.43.37.82 1.1.82 2.22l-.02 3.29c0 .32.22.7.83.58A12 12 0 0 0 12 .5Z"/>
+              </svg>
+              访问 GitHub
+            </a>
+            <a class="button secondary social-link" href="https://space.bilibili.com/your-bilibili-id" target="_blank" rel="noreferrer">
+              <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 4.5 9.8 7m6.4-2.5L13.4 7"/>
+                <path d="M6.2 7.2h11.6c1.8 0 3.2 1.4 3.2 3.2v6.4c0 1.8-1.4 3.2-3.2 3.2H6.2C4.4 20 3 18.6 3 16.8v-6.4c0-1.8 1.4-3.2 3.2-3.2Z"/>
+                <path d="M9.2 11.4v3.2m5.6-3.2v3.2"/>
+                <path d="M8.5 17h7"/>
+              </svg>
+              访问 B 站
+            </a>
           </div>
         </div>
 
@@ -536,6 +660,12 @@
               GitHub：
               <a href="https://github.com/your-github-id" target="_blank" rel="noreferrer">
                 github.com/your-github-id
+              </a>
+            </div>
+            <div class="profile-item">
+              B站：
+              <a href="https://space.bilibili.com/your-bilibili-id" target="_blank" rel="noreferrer">
+                space.bilibili.com/your-bilibili-id
               </a>
             </div>
           </div>
@@ -580,7 +710,23 @@
       <p>© 2026 你的名字. Built with GitHub Pages.</p>
     </footer>
   </div>
+  <script>
+    const quotes = [
+      { text: "长风破浪会有时，直挂云帆济沧海。", author: "李白" },
+      { text: "知之者不如好之者，好之者不如乐之者。", author: "孔子" },
+      { text: "志不立，天下无可成之事。", author: "王阳明" },
+      { text: "Stay hungry, stay foolish.", author: "Steve Jobs" }
+    ];
+
+    const quoteText = document.getElementById("quote-text");
+    const quoteAuthor = document.getElementById("quote-author");
+
+    if (quoteText && quoteAuthor && quotes.length > 0) {
+      const index = Math.floor(Math.random() * quotes.length);
+      const selected = quotes[index];
+      quoteText.textContent = selected.text;
+      quoteAuthor.textContent = "—— " + selected.author;
+    }
+  </script>
 </body>
 </html>
-
-
