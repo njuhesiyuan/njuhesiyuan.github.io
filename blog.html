@@ -19,10 +19,12 @@
       --shadow: 0 18px 50px rgba(70, 103, 136, 0.12);
       --radius-xl: 28px;
       --radius-lg: 20px;
+      --radius-md: 14px;
       --content-width: 1120px;
     }
 
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
@@ -34,13 +36,22 @@
         linear-gradient(180deg, #fbfdff 0%, #eef6ff 42%, #e4f0fb 100%);
       min-height: 100vh;
     }
-    a { color: inherit; text-decoration: none; }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
     .page {
       width: min(calc(100% - 32px), var(--content-width));
       margin: 0 auto;
       padding: 28px 0 56px;
     }
+
     .topbar {
+      position: relative;
+      z-index: 1000;
+      isolation: isolate;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -53,29 +64,137 @@
       backdrop-filter: blur(14px);
       box-shadow: 0 10px 30px rgba(70, 103, 136, 0.08);
     }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 14px;
+      flex: 1;
+    }
+
     .brand {
       font-size: 0.95rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--muted);
     }
+
     .nav {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
     }
+
     .nav a {
       padding: 10px 14px;
       border-radius: 999px;
       color: var(--muted);
       transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
     }
+
     .nav a:hover,
     .nav a.is-active {
-      background: rgba(255, 255, 255, 0.78);
+      background: rgba(255, 255, 255, 0.72);
       color: var(--text);
       transform: translateY(-1px);
     }
+
+    .search-shell {
+      position: relative;
+      z-index: 1001;
+      width: min(280px, 100%);
+      flex: 0 1 280px;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(75, 112, 146, 0.14);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    }
+
+    .search-box svg {
+      width: 16px;
+      height: 16px;
+      color: var(--muted);
+      flex: 0 0 16px;
+    }
+
+    .search-input {
+      width: 100%;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: var(--text);
+      font: inherit;
+    }
+
+    .search-input::placeholder {
+      color: #7f93a7;
+    }
+
+    .search-results {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      width: 100%;
+      display: none;
+      padding: 10px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(75, 112, 146, 0.14);
+      box-shadow: 0 18px 40px rgba(70, 103, 136, 0.14);
+      backdrop-filter: blur(18px);
+      z-index: 1002;
+    }
+
+    .search-results.is-visible {
+      display: grid;
+      gap: 8px;
+    }
+
+    .search-result-item {
+      display: block;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(246, 250, 255, 0.96), rgba(235, 245, 255, 0.88));
+      border: 1px solid transparent;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .search-result-item:hover {
+      transform: translateY(-1px);
+      border-color: rgba(110, 174, 219, 0.28);
+      box-shadow: 0 12px 24px rgba(70, 103, 136, 0.1);
+    }
+
+    .search-result-title {
+      display: block;
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    .search-result-text {
+      display: block;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .search-empty {
+      padding: 12px 14px;
+      border-radius: 16px;
+      color: var(--muted);
+      background: rgba(244, 249, 255, 0.88);
+      font-size: 0.92rem;
+    }
+
     .card {
       background: var(--panel);
       border: 1px solid rgba(255, 255, 255, 0.72);
@@ -83,16 +202,19 @@
       box-shadow: var(--shadow);
       backdrop-filter: blur(16px);
     }
+
     .hero {
       display: grid;
       grid-template-columns: 1.05fr 0.95fr;
       gap: 24px;
       margin-bottom: 26px;
     }
+
     .intro,
     .panel {
       padding: 30px;
     }
+
     .eyebrow {
       display: inline-flex;
       align-items: center;
@@ -104,6 +226,7 @@
       color: var(--muted);
       font-size: 0.9rem;
     }
+
     .eyebrow::before {
       content: "";
       width: 8px;
@@ -111,30 +234,36 @@
       border-radius: 50%;
       background: linear-gradient(135deg, var(--accent), var(--accent-2));
     }
+
     h1 {
       margin: 0 0 12px;
       font-size: clamp(2rem, 4vw, 3.4rem);
       line-height: 1.05;
       letter-spacing: -0.04em;
     }
+
     .lead,
     .panel-text,
     .entry-meta,
     .entry-desc,
-    .footer {
+    .footer,
+    .page-status {
       color: var(--muted);
     }
+
     .lead,
     .panel-text,
     .entry-desc {
       line-height: 1.8;
     }
+
     .button-row {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
       margin-top: 22px;
     }
+
     .button {
       display: inline-flex;
       align-items: center;
@@ -145,46 +274,58 @@
       font-weight: 600;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .button:hover { transform: translateY(-2px); }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
     .button.primary {
       color: #fffaf5;
       background: linear-gradient(135deg, #63a6d7, #8fc3ea 55%, #a8d6f3);
       box-shadow: 0 12px 30px rgba(110, 174, 219, 0.3);
     }
+
     .button.secondary {
       background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(240, 248, 255, 0.88));
       border: 1px solid var(--line);
       color: var(--text);
     }
+
     .stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 14px;
       margin-top: 20px;
     }
+
     .stat {
       padding: 18px;
       border-radius: var(--radius-lg);
       background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(236, 246, 255, 0.9));
       border: 1px solid var(--line);
     }
+
     .stat strong {
       display: block;
       margin-bottom: 8px;
       font-size: 1.5rem;
     }
+
     .list-section {
       display: grid;
       gap: 18px;
     }
+
     .section-title {
       margin: 0 0 4px;
       font-size: 1.3rem;
     }
+
     .entry-list {
       display: grid;
       gap: 18px;
     }
+
     .entry {
       padding: 24px 26px;
       border-radius: var(--radius-lg);
@@ -192,11 +333,13 @@
       border: 1px solid var(--line);
       transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
     }
+
     .entry:hover {
       transform: translateY(-3px);
       box-shadow: 0 16px 34px rgba(70, 103, 136, 0.12);
       border-color: rgba(110, 174, 219, 0.28);
     }
+
     .entry-top {
       display: flex;
       justify-content: space-between;
@@ -204,15 +347,18 @@
       align-items: flex-start;
       margin-bottom: 12px;
     }
+
     .entry h2 {
       margin: 0;
       font-size: 1.15rem;
     }
+
     .entry h2 a {
       text-decoration: underline;
       text-decoration-color: rgba(110, 174, 219, 0.35);
       text-underline-offset: 4px;
     }
+
     .tag {
       display: inline-flex;
       padding: 8px 12px;
@@ -222,24 +368,124 @@
       font-size: 0.88rem;
       white-space: nowrap;
     }
+
     .entry-meta {
       margin-bottom: 10px;
       font-size: 0.92rem;
     }
+
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 20px 24px;
+      flex-wrap: wrap;
+    }
+
+    .pagination-controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .page-chip,
+    .page-next {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.84);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      font: inherit;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    }
+
+    .page-chip:hover,
+    .page-next:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(70, 103, 136, 0.1);
+    }
+
+    .page-chip.is-active {
+      background: linear-gradient(135deg, #63a6d7, #8fc3ea 55%, #a8d6f3);
+      color: #fffaf5;
+      border-color: transparent;
+    }
+
+    .page-chip:disabled,
+    .page-next:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .page-status {
+      font-size: 0.94rem;
+    }
+
+    .search-target.is-highlighted {
+      scroll-margin-top: 96px;
+      box-shadow: 0 0 0 2px rgba(110, 174, 219, 0.25), var(--shadow);
+      transition: box-shadow 0.25s ease;
+    }
+
     .footer {
       margin-top: 16px;
       text-align: center;
       font-size: 0.95rem;
     }
-    @media (max-width: 920px) {
-      .hero { grid-template-columns: 1fr; }
-      .stats { grid-template-columns: 1fr; }
+
+    @media (max-width: 980px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar-right {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .search-shell {
+        width: 100%;
+        flex-basis: auto;
+      }
     }
+
     @media (max-width: 640px) {
-      .page { width: min(calc(100% - 20px), var(--content-width)); padding-top: 18px; padding-bottom: 40px; }
-      .topbar { border-radius: 28px; padding: 16px; align-items: flex-start; flex-direction: column; }
-      .intro, .panel, .entry { padding: 22px; }
-      .entry-top { flex-direction: column; }
+      .page {
+        width: min(calc(100% - 20px), var(--content-width));
+        padding-top: 18px;
+        padding-bottom: 40px;
+      }
+
+      .topbar {
+        border-radius: 28px;
+        padding: 16px;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .intro,
+      .panel,
+      .entry {
+        padding: 22px;
+      }
+
+      .entry-top {
+        flex-direction: column;
+      }
+
+      .pagination {
+        padding: 18px 20px;
+      }
     }
   </style>
 </head>
@@ -247,22 +493,33 @@
   <div class="page">
     <header class="topbar">
       <div class="brand">Personal Homepage</div>
-      <nav class="nav">
-        <a href="index.html">首页</a>
-        <a href="blog.html" class="is-active">Blog</a>
-        <a href="code.html">代码</a>
-        <a href="notes.html">笔记</a>
-      </nav>
+      <div class="topbar-right">
+        <nav class="nav">
+          <a href="index.html">首页</a>
+          <a href="notes.html">笔记</a>
+          <a href="blog.html" class="is-active">Blog</a>
+          <a href="code.html">代码</a>
+        </nav>
+        <div class="search-shell">
+          <label class="search-box" for="site-search">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="7"></circle>
+              <path d="m20 20-3.5-3.5"></path>
+            </svg>
+            <input class="search-input" id="site-search" type="search" placeholder="搜索文章、标签或关键词">
+          </label>
+          <div class="search-results" id="search-results" aria-live="polite"></div>
+        </div>
+      </div>
     </header>
 
     <main>
       <section class="hero">
-        <div class="card intro">
+        <div class="card intro search-target" id="blog-overview" data-search-title="Blog 概览" data-search-text="博客 概览 文章 归档 分类 导航">
           <div class="eyebrow">Blog Archive</div>
           <h1>文章与更新列表</h1>
           <p class="lead">
-            这一页用于集中展示博客文章、阶段总结、随笔与项目记录。整体顶部结构与主站保持一致，
-            访问者可以从首页自然切换到更完整的内容归档。
+            这一页保留了首页的顶部导航与搜索体验，同时加入前端分页。以后文章数量增多时，只需要继续往列表里添加卡片，不必手动拆新页面。
           </p>
           <div class="button-row">
             <a class="button primary" href="index.html">返回首页</a>
@@ -270,37 +527,36 @@
           </div>
           <div class="stats">
             <div class="stat">
-              <strong>03</strong>
-              <span>推荐置顶文章</span>
+              <strong>搜索</strong>
+              <span>按标题、摘要和标签查找</span>
             </div>
             <div class="stat">
-              <strong>持续</strong>
-              <span>适合记录阶段进展</span>
+              <strong>分页</strong>
+              <span>支持上一页、下一页和页码跳转</span>
             </div>
             <div class="stat">
-              <strong>统一</strong>
-              <span>保留主页的浅蓝主题</span>
+              <strong>扩展</strong>
+              <span>适合后续持续增加文章数量</span>
             </div>
           </div>
         </div>
 
-        <aside class="card panel">
-          <h2 class="section-title">这一页适合放什么</h2>
+        <aside class="card panel search-target" id="blog-guide" data-search-title="Blog 使用说明" data-search-text="博客 使用说明 添加文章 子目录 blog">
+          <h2 class="section-title">这一页怎么继续扩展</h2>
           <p class="panel-text">
-            可以按时间倒序列出文章，也可以按主题拆成研究、生活、项目日志等栏目。如果之后你接入真正的博客系统，
-            这个页面也可以先作为静态入口页继续保留。
+            继续新增文章时，只需要在 `blog/` 子目录放一篇新 HTML，再往下面的列表里补一张卡片。分页会自动按条目数量重新计算。
           </p>
         </aside>
       </section>
 
       <section class="list-section" id="post-list">
-        <div class="card panel">
+        <div class="card panel search-target" id="post-archive" data-search-title="Blog 文章列表" data-search-text="文章列表 blog posts archive">
           <h2 class="section-title">最新文章</h2>
-          <p class="panel-text">现在已经改成“列表页 + 子目录文章页”的结构。以后新增文章时，只需要在 `blog/` 目录放一篇新 HTML，再在这里补一个链接。</p>
+          <p class="panel-text">下面的条目已经接入分页与搜索。后续如果文章变多，只需继续添加同结构的 `article` 卡片。</p>
         </div>
 
-        <div class="entry-list">
-          <article class="entry">
+        <div class="entry-list" id="paginated-list">
+          <article class="entry search-target" data-page-item data-search-title="从主页到完整内容站点的第一步" data-search-text="建站记录 页面设计 多页面结构 blog 文章" data-search-link="blog/welcome-post.html">
             <div class="entry-top">
               <h2><a href="blog/welcome-post.html">从主页到完整内容站点的第一步</a></h2>
               <span class="tag">置顶文章</span>
@@ -311,7 +567,7 @@
             </p>
           </article>
 
-          <article class="entry">
+          <article class="entry search-target" data-page-item data-search-title="最近在学什么" data-search-text="学习过程 随笔 项目总结 blog 文章" data-search-link="blog/study-log.html">
             <div class="entry-top">
               <h2><a href="blog/study-log.html">最近在学什么</a></h2>
               <span class="tag">随笔</span>
@@ -322,7 +578,7 @@
             </p>
           </article>
 
-          <article class="entry">
+          <article class="entry search-target" data-page-item data-search-title="一篇阅读笔记如何整理成公开文章" data-search-text="阅读整理 输出方法 公开文章 blog 笔记" data-search-link="blog/welcome-post.html">
             <div class="entry-top">
               <h2><a href="blog/welcome-post.html">一篇阅读笔记如何整理成公开文章</a></h2>
               <span class="tag">方法记录</span>
@@ -332,6 +588,37 @@
               适合放论文阅读、书籍摘记或技术文章摘要，后续也可以跳转到更长的正文页面。
             </p>
           </article>
+
+          <article class="entry search-target" data-page-item data-search-title="博客结构维护清单" data-search-text="博客结构 维护清单 页面组织 列表归档" data-search-link="blog/study-log.html">
+            <div class="entry-top">
+              <h2><a href="blog/study-log.html">博客结构维护清单</a></h2>
+              <span class="tag">维护</span>
+            </div>
+            <div class="entry-meta">2026-06-12 · 归档维护 · 结构整理</div>
+            <p class="entry-desc">
+              适合记录目录约定、命名方式和文章更新流程，方便你以后维护越来越多的页面内容。
+            </p>
+          </article>
+
+          <article class="entry search-target" data-page-item data-search-title="阶段性输出如何整理成 Blog" data-search-text="阶段总结 输出 blog 列表 摘要" data-search-link="blog/welcome-post.html">
+            <div class="entry-top">
+              <h2><a href="blog/welcome-post.html">阶段性输出如何整理成 Blog</a></h2>
+              <span class="tag">整理方法</span>
+            </div>
+            <div class="entry-meta">2026-05-28 · 经验整理 · 输出习惯</div>
+            <p class="entry-desc">
+              当内容越来越多时，先写摘要、再补正文链接，会让归档页可读性更稳定，也更适合搜索定位。
+            </p>
+          </article>
+        </div>
+
+        <div class="card pagination" id="pagination">
+          <div class="page-status" id="page-status">第 1 页</div>
+          <div class="pagination-controls">
+            <button class="page-next" id="prev-page" type="button">上一页</button>
+            <div id="page-numbers" class="pagination-controls"></div>
+            <button class="page-next" id="next-page" type="button">下一页</button>
+          </div>
         </div>
       </section>
     </main>
@@ -340,5 +627,135 @@
       <p>© 2026 源远流长. Blog List Page.</p>
     </footer>
   </div>
+
+  <script>
+    const searchInput = document.getElementById("site-search");
+    const searchResults = document.getElementById("search-results");
+    const searchTargets = Array.from(document.querySelectorAll("[data-search-title]"));
+
+    function clearHighlights() {
+      document.querySelectorAll(".search-target.is-highlighted").forEach((item) => {
+        item.classList.remove("is-highlighted");
+      });
+    }
+
+    function openSearchResults(items, keyword) {
+      if (!keyword) {
+        searchResults.classList.remove("is-visible");
+        searchResults.innerHTML = "";
+        return;
+      }
+
+      if (!items.length) {
+        searchResults.innerHTML = '<div class="search-empty">没有找到相关内容，可以试试“文章”“归档”“整理”等关键词。</div>';
+        searchResults.classList.add("is-visible");
+        return;
+      }
+
+      searchResults.innerHTML = items.map((item) => `
+        <a class="search-result-item" href="${item.link || `#${item.id}`}" data-target="${item.id || ""}" data-link="${item.link || ""}">
+          <span class="search-result-title">${item.title}</span>
+          <span class="search-result-text">${item.text}</span>
+        </a>
+      `).join("");
+      searchResults.classList.add("is-visible");
+    }
+
+    const searchIndex = searchTargets.map((node, index) => ({
+      id: node.id || `search-item-${index}`,
+      title: node.dataset.searchTitle || "页面内容",
+      text: node.dataset.searchText || node.textContent.replace(/\s+/g, " ").trim().slice(0, 80),
+      link: node.dataset.searchLink || "",
+      node
+    }));
+
+    if (searchInput && searchResults) {
+      searchInput.addEventListener("input", (event) => {
+        const keyword = event.target.value.trim().toLowerCase();
+        clearHighlights();
+
+        if (!keyword) {
+          openSearchResults([], "");
+          return;
+        }
+
+        const matches = searchIndex.filter((item) => {
+          const haystack = `${item.title} ${item.text}`.toLowerCase();
+          return haystack.includes(keyword);
+        }).slice(0, 8);
+
+        openSearchResults(matches, keyword);
+      });
+
+      searchResults.addEventListener("click", (event) => {
+        const target = event.target.closest(".search-result-item");
+        if (!target) return;
+
+        const href = target.getAttribute("data-link");
+        if (href) {
+          return;
+        }
+
+        event.preventDefault();
+        const id = target.dataset.target;
+        const node = document.getElementById(id);
+        if (!node) return;
+
+        clearHighlights();
+        node.classList.add("is-highlighted");
+        node.scrollIntoView({ behavior: "smooth", block: "start" });
+        searchResults.classList.remove("is-visible");
+
+        window.setTimeout(() => {
+          node.classList.remove("is-highlighted");
+        }, 2200);
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!event.target.closest(".search-shell")) {
+          searchResults.classList.remove("is-visible");
+        }
+      });
+    }
+
+    const itemsPerPage = 3;
+    const pageItems = Array.from(document.querySelectorAll("[data-page-item]"));
+    const prevPageButton = document.getElementById("prev-page");
+    const nextPageButton = document.getElementById("next-page");
+    const pageNumbers = document.getElementById("page-numbers");
+    const pageStatus = document.getElementById("page-status");
+    let currentPage = 1;
+    const totalPages = Math.max(1, Math.ceil(pageItems.length / itemsPerPage));
+
+    function renderPage(page) {
+      currentPage = Math.min(Math.max(page, 1), totalPages);
+
+      pageItems.forEach((item, index) => {
+        const start = (currentPage - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        item.style.display = index >= start && index < end ? "" : "none";
+      });
+
+      pageNumbers.innerHTML = "";
+      for (let i = 1; i <= totalPages; i += 1) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `page-chip${i === currentPage ? " is-active" : ""}`;
+        button.textContent = i;
+        button.addEventListener("click", () => renderPage(i));
+        pageNumbers.appendChild(button);
+      }
+
+      prevPageButton.disabled = currentPage === 1;
+      nextPageButton.disabled = currentPage === totalPages;
+      pageStatus.textContent = `第 ${currentPage} 页 / 共 ${totalPages} 页`;
+    }
+
+    if (prevPageButton && nextPageButton && pageNumbers && pageStatus) {
+      prevPageButton.addEventListener("click", () => renderPage(currentPage - 1));
+      nextPageButton.addEventListener("click", () => renderPage(currentPage + 1));
+      renderPage(1);
+    }
+  </script>
 </body>
 </html>

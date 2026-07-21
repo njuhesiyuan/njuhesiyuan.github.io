@@ -18,7 +18,9 @@
       --radius-lg: 20px;
       --content-width: 1120px;
     }
+
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
@@ -30,13 +32,22 @@
         linear-gradient(180deg, #fbfdff 0%, #eef6ff 42%, #e4f0fb 100%);
       min-height: 100vh;
     }
-    a { color: inherit; text-decoration: none; }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
     .page {
       width: min(calc(100% - 32px), var(--content-width));
       margin: 0 auto;
       padding: 28px 0 56px;
     }
+
     .topbar {
+      position: relative;
+      z-index: 1000;
+      isolation: isolate;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -49,29 +60,141 @@
       backdrop-filter: blur(14px);
       box-shadow: 0 10px 30px rgba(70, 103, 136, 0.08);
     }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 14px;
+      flex: 1;
+    }
+
     .brand {
       font-size: 0.95rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--muted);
     }
+
     .nav {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
     }
+
     .nav a {
       padding: 10px 14px;
       border-radius: 999px;
       color: var(--muted);
       transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
     }
+
     .nav a:hover,
     .nav a.is-active {
-      background: rgba(255, 255, 255, 0.78);
+      background: rgba(255, 255, 255, 0.72);
       color: var(--text);
       transform: translateY(-1px);
     }
+
+    .search-shell {
+      position: relative;
+      z-index: 1001;
+      width: min(280px, 100%);
+      flex: 0 1 280px;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(75, 112, 146, 0.14);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    }
+
+    .search-box svg {
+      width: 16px;
+      height: 16px;
+      color: var(--muted);
+      flex: 0 0 16px;
+    }
+
+    .search-input {
+      width: 100%;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: var(--text);
+      font: inherit;
+    }
+
+    .search-results {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      width: 100%;
+      display: none;
+      padding: 10px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(75, 112, 146, 0.14);
+      box-shadow: 0 18px 40px rgba(70, 103, 136, 0.14);
+      backdrop-filter: blur(18px);
+      z-index: 1002;
+    }
+
+    .search-results.is-visible {
+      display: grid;
+      gap: 8px;
+    }
+
+    .search-result-item {
+      display: block;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(246, 250, 255, 0.96), rgba(235, 245, 255, 0.88));
+      border: 1px solid transparent;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .search-result-item:hover {
+      transform: translateY(-1px);
+      border-color: rgba(110, 174, 219, 0.28);
+      box-shadow: 0 12px 24px rgba(70, 103, 136, 0.1);
+    }
+
+    .search-result-title {
+      display: block;
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    .search-result-text,
+    .lead,
+    .panel-text,
+    .note-meta,
+    .note-desc,
+    .footer,
+    .page-status,
+    .search-empty {
+      color: var(--muted);
+    }
+
+    .search-result-text,
+    .search-empty {
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .search-empty {
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(244, 249, 255, 0.88);
+    }
+
     .card {
       background: var(--panel);
       border: 1px solid rgba(255, 255, 255, 0.72);
@@ -79,18 +202,20 @@
       box-shadow: var(--shadow);
       backdrop-filter: blur(16px);
     }
+
     .hero {
       display: grid;
       grid-template-columns: 1.05fr 0.95fr;
       gap: 24px;
       margin-bottom: 26px;
     }
+
     .intro,
     .panel,
-    .note-group,
     .note {
       padding: 30px;
     }
+
     .eyebrow {
       display: inline-flex;
       align-items: center;
@@ -102,6 +227,7 @@
       color: var(--muted);
       font-size: 0.9rem;
     }
+
     .eyebrow::before {
       content: "";
       width: 8px;
@@ -109,30 +235,27 @@
       border-radius: 50%;
       background: linear-gradient(135deg, var(--accent), var(--accent-2));
     }
+
     h1 {
       margin: 0 0 12px;
       font-size: clamp(2rem, 4vw, 3.4rem);
       line-height: 1.05;
       letter-spacing: -0.04em;
     }
-    .lead,
-    .panel-text,
-    .note-meta,
-    .note-desc,
-    .footer {
-      color: var(--muted);
-    }
+
     .lead,
     .panel-text,
     .note-desc {
       line-height: 1.8;
     }
+
     .button-row {
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
       margin-top: 22px;
     }
+
     .button {
       display: inline-flex;
       align-items: center;
@@ -143,71 +266,181 @@
       font-weight: 600;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .button:hover { transform: translateY(-2px); }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
     .button.primary {
       color: #fffaf5;
       background: linear-gradient(135deg, #63a6d7, #8fc3ea 55%, #a8d6f3);
       box-shadow: 0 12px 30px rgba(110, 174, 219, 0.3);
     }
+
     .button.secondary {
       background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(240, 248, 255, 0.88));
       border: 1px solid var(--line);
       color: var(--text);
     }
+
     .section-title {
       margin: 0 0 4px;
       font-size: 1.3rem;
     }
-    .notes-grid {
+
+    .notes-list {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 20px;
+      gap: 18px;
     }
-    .note-group {
-      border-radius: var(--radius-xl);
-    }
-    .note-list {
-      display: grid;
-      gap: 16px;
-      margin-top: 18px;
-    }
+
     .note {
       border-radius: var(--radius-lg);
       background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(235, 245, 255, 0.76));
       border: 1px solid var(--line);
       transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
     }
+
     .note:hover {
       transform: translateY(-3px);
       box-shadow: 0 16px 34px rgba(70, 103, 136, 0.12);
       border-color: rgba(110, 174, 219, 0.28);
     }
+
     .note h2 {
       margin: 0 0 10px;
       font-size: 1.08rem;
     }
+
     .note h2 a {
       text-decoration: underline;
       text-decoration-color: rgba(110, 174, 219, 0.35);
       text-underline-offset: 4px;
     }
+
+    .note-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .tag {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.86);
+      color: #3f6f95;
+      font-size: 0.88rem;
+      white-space: nowrap;
+    }
+
     .note-meta {
       margin-bottom: 8px;
       font-size: 0.92rem;
     }
+
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 26px;
+      padding: 20px 24px;
+      flex-wrap: wrap;
+    }
+
+    .pagination-controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .page-chip,
+    .page-next {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.84);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      font: inherit;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .page-chip:hover,
+    .page-next:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(70, 103, 136, 0.1);
+    }
+
+    .page-chip.is-active {
+      background: linear-gradient(135deg, #63a6d7, #8fc3ea 55%, #a8d6f3);
+      color: #fffaf5;
+      border-color: transparent;
+    }
+
+    .page-chip:disabled,
+    .page-next:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .search-target.is-highlighted {
+      scroll-margin-top: 96px;
+      box-shadow: 0 0 0 2px rgba(110, 174, 219, 0.25), var(--shadow);
+      transition: box-shadow 0.25s ease;
+    }
+
     .footer {
       margin-top: 16px;
       text-align: center;
       font-size: 0.95rem;
     }
-    @media (max-width: 920px) {
-      .hero,
-      .notes-grid { grid-template-columns: 1fr; }
+
+    @media (max-width: 980px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar-right {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .search-shell {
+        width: 100%;
+        flex-basis: auto;
+      }
     }
+
     @media (max-width: 640px) {
-      .page { width: min(calc(100% - 20px), var(--content-width)); padding-top: 18px; padding-bottom: 40px; }
-      .topbar { border-radius: 28px; padding: 16px; align-items: flex-start; flex-direction: column; }
-      .intro, .panel, .note-group, .note { padding: 22px; }
+      .page {
+        width: min(calc(100% - 20px), var(--content-width));
+        padding-top: 18px;
+        padding-bottom: 40px;
+      }
+
+      .topbar {
+        border-radius: 28px;
+        padding: 16px;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .intro,
+      .panel,
+      .note {
+        padding: 22px;
+      }
+
+      .note-top {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
@@ -215,84 +448,246 @@
   <div class="page">
     <header class="topbar">
       <div class="brand">Personal Homepage</div>
-      <nav class="nav">
-        <a href="index.html">首页</a>
-        <a href="blog.html">Blog</a>
-        <a href="code.html">代码</a>
-        <a href="notes.html" class="is-active">笔记</a>
-      </nav>
+      <div class="topbar-right">
+        <nav class="nav">
+          <a href="index.html">首页</a>
+          <a href="notes.html" class="is-active">笔记</a>
+          <a href="blog.html">Blog</a>
+          <a href="code.html">代码</a>
+        </nav>
+        <div class="search-shell">
+          <label class="search-box" for="site-search">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="7"></circle>
+              <path d="m20 20-3.5-3.5"></path>
+            </svg>
+            <input class="search-input" id="site-search" type="search" placeholder="搜索笔记、分类或关键词">
+          </label>
+          <div class="search-results" id="search-results" aria-live="polite"></div>
+        </div>
+      </div>
     </header>
 
     <main>
       <section class="hero">
-        <div class="card intro">
+        <div class="card intro search-target" id="notes-overview" data-search-title="笔记概览" data-search-text="笔记 概览 分类 学习 技术 归档">
           <div class="eyebrow">Notes Archive</div>
           <h1>笔记与整理列表</h1>
           <p class="lead">
-            这一页适合放课程笔记、论文摘录、知识卡片和技术备忘。相比 Blog 页，它更适合高频、结构化、可快速检索的内容。
+            笔记页现在也有和首页一致的搜索条，以及面向大量条目的分页。以后课程笔记、论文记录、技术备忘都可以持续往这里追加。
           </p>
           <div class="button-row">
             <a class="button primary" href="index.html">返回首页</a>
-            <a class="button secondary" href="#notes-grid">查看分类</a>
+            <a class="button secondary" href="#notes-list">查看分类</a>
           </div>
         </div>
 
-        <aside class="card panel">
-          <h2 class="section-title">推荐分类方式</h2>
+        <aside class="card panel search-target" id="notes-guide" data-search-title="笔记页说明" data-search-text="笔记页 说明 分类 笔记模板 归档">
+          <h2 class="section-title">推荐组织方式</h2>
           <p class="panel-text">
-            可以按课程、主题、论文方向或工具栈进行分组。当前先示例为“学习笔记”和“技术备忘”两栏，后面你可以继续拆分。
+            如果笔记继续增多，建议每条只保留标题、类别、摘要和链接，详细内容放进 `notes/` 子目录。分页会自动按条目数量切换。
           </p>
         </aside>
       </section>
 
-      <section class="notes-grid" id="notes-grid">
-        <div class="card note-group">
-          <h2 class="section-title">学习笔记</h2>
-          <div class="note-list">
-            <article class="note">
-              <h2><a href="notes/ml-course-summary.html">机器学习课程重点整理</a></h2>
-              <div class="note-meta">课程笔记 · 公式推导 · 易错点</div>
-              <p class="note-desc">
-                适合收纳课程中的关键定义、常见证明思路和考试前速查内容。
-              </p>
-            </article>
-
-            <article class="note">
-              <h2><a href="notes/paper-reading-template.html">论文阅读模板与摘要规范</a></h2>
-              <div class="note-meta">阅读笔记 · 结构化输出</div>
-              <p class="note-desc">
-                适合统一记录论文问题定义、方法概述、实验设置以及你自己的判断。
-              </p>
-            </article>
+      <section class="notes-list" id="notes-list">
+        <article class="card note search-target" data-page-item data-search-title="机器学习课程重点整理" data-search-text="课程笔记 机器学习 公式推导 易错点" data-search-link="notes/ml-course-summary.html">
+          <div class="note-top">
+            <h2><a href="notes/ml-course-summary.html">机器学习课程重点整理</a></h2>
+            <span class="tag">课程笔记</span>
           </div>
-        </div>
+          <div class="note-meta">课程笔记 · 公式推导 · 易错点</div>
+          <p class="note-desc">
+            适合收纳课程中的关键定义、常见证明思路和考试前速查内容。
+          </p>
+        </article>
 
-        <div class="card note-group">
-          <h2 class="section-title">技术备忘</h2>
-          <div class="note-list">
-            <article class="note">
-              <h2>Git / GitHub 常用操作清单</h2>
-              <div class="note-meta">工具备忘 · 命令速查</div>
-              <p class="note-desc">
-                可以把高频命令、分支协作流程和常见问题修复方式整理成一页。
-              </p>
-            </article>
-
-            <article class="note">
-              <h2>网页样式与组件复用规则</h2>
-              <div class="note-meta">前端整理 · 主题维护</div>
-              <p class="note-desc">
-                适合记录颜色变量、按钮样式、卡片布局规范，便于后续扩展时保持整站风格一致。
-              </p>
-            </article>
+        <article class="card note search-target" data-page-item data-search-title="论文阅读模板与摘要规范" data-search-text="阅读笔记 论文摘要 模板 结构化输出" data-search-link="notes/paper-reading-template.html">
+          <div class="note-top">
+            <h2><a href="notes/paper-reading-template.html">论文阅读模板与摘要规范</a></h2>
+            <span class="tag">阅读笔记</span>
           </div>
-        </div>
+          <div class="note-meta">阅读笔记 · 结构化输出</div>
+          <p class="note-desc">
+            适合统一记录论文问题定义、方法概述、实验设置以及你自己的判断。
+          </p>
+        </article>
+
+        <article class="card note search-target" data-page-item data-search-title="Git GitHub 常用操作清单" data-search-text="工具备忘 Git GitHub 命令速查" data-search-link="notes/ml-course-summary.html">
+          <div class="note-top">
+            <h2><a href="notes/ml-course-summary.html">Git / GitHub 常用操作清单</a></h2>
+            <span class="tag">工具备忘</span>
+          </div>
+          <div class="note-meta">工具备忘 · 命令速查</div>
+          <p class="note-desc">
+            可以把高频命令、分支协作流程和常见问题修复方式整理成一页。
+          </p>
+        </article>
+
+        <article class="card note search-target" data-page-item data-search-title="网页样式与组件复用规则" data-search-text="前端整理 主题维护 样式变量 组件复用" data-search-link="notes/paper-reading-template.html">
+          <div class="note-top">
+            <h2><a href="notes/paper-reading-template.html">网页样式与组件复用规则</a></h2>
+            <span class="tag">前端整理</span>
+          </div>
+          <div class="note-meta">前端整理 · 主题维护</div>
+          <p class="note-desc">
+            适合记录颜色变量、按钮样式、卡片布局规范，便于后续扩展时保持整站风格一致。
+          </p>
+        </article>
+
+        <article class="card note search-target" data-page-item data-search-title="课程阅读与复习计划" data-search-text="学习计划 课程复习 阅读整理 笔记" data-search-link="notes/ml-course-summary.html">
+          <div class="note-top">
+            <h2><a href="notes/ml-course-summary.html">课程阅读与复习计划</a></h2>
+            <span class="tag">学习安排</span>
+          </div>
+          <div class="note-meta">学习安排 · 复习路径 · 阅读清单</div>
+          <p class="note-desc">
+            适合集中管理本周或本阶段的复习内容、阅读目标和笔记补全计划。
+          </p>
+        </article>
       </section>
+
+      <div class="card pagination" id="pagination">
+        <div class="page-status" id="page-status">第 1 页</div>
+        <div class="pagination-controls">
+          <button class="page-next" id="prev-page" type="button">上一页</button>
+          <div id="page-numbers" class="pagination-controls"></div>
+          <button class="page-next" id="next-page" type="button">下一页</button>
+        </div>
+      </div>
     </main>
 
     <footer class="footer">
       <p>© 2026 源远流长. Notes List Page.</p>
     </footer>
   </div>
+
+  <script>
+    const searchInput = document.getElementById("site-search");
+    const searchResults = document.getElementById("search-results");
+    const searchTargets = Array.from(document.querySelectorAll("[data-search-title]"));
+
+    function clearHighlights() {
+      document.querySelectorAll(".search-target.is-highlighted").forEach((item) => {
+        item.classList.remove("is-highlighted");
+      });
+    }
+
+    function openSearchResults(items, keyword) {
+      if (!keyword) {
+        searchResults.classList.remove("is-visible");
+        searchResults.innerHTML = "";
+        return;
+      }
+
+      if (!items.length) {
+        searchResults.innerHTML = '<div class="search-empty">没有找到相关内容，可以试试“课程”“论文”“前端”等关键词。</div>';
+        searchResults.classList.add("is-visible");
+        return;
+      }
+
+      searchResults.innerHTML = items.map((item) => `
+        <a class="search-result-item" href="${item.link || `#${item.id}`}" data-target="${item.id || ""}" data-link="${item.link || ""}">
+          <span class="search-result-title">${item.title}</span>
+          <span class="search-result-text">${item.text}</span>
+        </a>
+      `).join("");
+      searchResults.classList.add("is-visible");
+    }
+
+    const searchIndex = searchTargets.map((node, index) => ({
+      id: node.id || `search-item-${index}`,
+      title: node.dataset.searchTitle || "页面内容",
+      text: node.dataset.searchText || node.textContent.replace(/\s+/g, " ").trim().slice(0, 80),
+      link: node.dataset.searchLink || "",
+      node
+    }));
+
+    if (searchInput && searchResults) {
+      searchInput.addEventListener("input", (event) => {
+        const keyword = event.target.value.trim().toLowerCase();
+        clearHighlights();
+
+        if (!keyword) {
+          openSearchResults([], "");
+          return;
+        }
+
+        const matches = searchIndex.filter((item) => {
+          const haystack = `${item.title} ${item.text}`.toLowerCase();
+          return haystack.includes(keyword);
+        }).slice(0, 8);
+
+        openSearchResults(matches, keyword);
+      });
+
+      searchResults.addEventListener("click", (event) => {
+        const target = event.target.closest(".search-result-item");
+        if (!target) return;
+
+        const href = target.getAttribute("data-link");
+        if (href) {
+          return;
+        }
+
+        event.preventDefault();
+        const id = target.dataset.target;
+        const node = document.getElementById(id);
+        if (!node) return;
+
+        clearHighlights();
+        node.classList.add("is-highlighted");
+        node.scrollIntoView({ behavior: "smooth", block: "start" });
+        searchResults.classList.remove("is-visible");
+
+        window.setTimeout(() => {
+          node.classList.remove("is-highlighted");
+        }, 2200);
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!event.target.closest(".search-shell")) {
+          searchResults.classList.remove("is-visible");
+        }
+      });
+    }
+
+    const itemsPerPage = 3;
+    const pageItems = Array.from(document.querySelectorAll("[data-page-item]"));
+    const prevPageButton = document.getElementById("prev-page");
+    const nextPageButton = document.getElementById("next-page");
+    const pageNumbers = document.getElementById("page-numbers");
+    const pageStatus = document.getElementById("page-status");
+    let currentPage = 1;
+    const totalPages = Math.max(1, Math.ceil(pageItems.length / itemsPerPage));
+
+    function renderPage(page) {
+      currentPage = Math.min(Math.max(page, 1), totalPages);
+
+      pageItems.forEach((item, index) => {
+        const start = (currentPage - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        item.style.display = index >= start && index < end ? "" : "none";
+      });
+
+      pageNumbers.innerHTML = "";
+      for (let i = 1; i <= totalPages; i += 1) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `page-chip${i === currentPage ? " is-active" : ""}`;
+        button.textContent = i;
+        button.addEventListener("click", () => renderPage(i));
+        pageNumbers.appendChild(button);
+      }
+
+      prevPageButton.disabled = currentPage === 1;
+      nextPageButton.disabled = currentPage === totalPages;
+      pageStatus.textContent = `第 ${currentPage} 页 / 共 ${totalPages} 页`;
+    }
+
+    prevPageButton.addEventListener("click", () => renderPage(currentPage - 1));
+    nextPageButton.addEventListener("click", () => renderPage(currentPage + 1));
+    renderPage(1);
+  </script>
 </body>
 </html>

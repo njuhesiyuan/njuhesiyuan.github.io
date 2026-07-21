@@ -5,53 +5,361 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>最近在学什么 | Blog</title>
   <style>
+    :root {
+      --bg: #eef6ff;
+      --panel: rgba(255, 255, 255, 0.82);
+      --text: #203042;
+      --muted: #607387;
+      --line: rgba(75, 112, 146, 0.16);
+      --accent: #6eaedb;
+      --accent-2: #95c8c6;
+      --shadow: 0 18px 50px rgba(70, 103, 136, 0.12);
+      --radius-xl: 28px;
+      --content-width: 980px;
+    }
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-      color: #203042;
+      color: var(--text);
       background:
         radial-gradient(circle at top left, rgba(110, 174, 219, 0.24), transparent 28%),
         radial-gradient(circle at top right, rgba(149, 200, 198, 0.18), transparent 24%),
         linear-gradient(180deg, #fbfdff 0%, #eef6ff 42%, #e4f0fb 100%);
+      min-height: 100vh;
     }
+    a { color: inherit; text-decoration: none; }
     .page {
-      width: min(calc(100% - 32px), 860px);
+      width: min(calc(100% - 32px), var(--content-width));
       margin: 0 auto;
       padding: 28px 0 56px;
     }
-    .card {
+    .topbar {
+      position: relative;
+      z-index: 1000;
+      isolation: isolate;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 26px;
+      padding: 14px 18px;
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      border-radius: 999px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 10px 30px rgba(70, 103, 136, 0.08);
+    }
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 14px;
+      flex: 1;
+    }
+    .brand {
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .nav a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: var(--muted);
+      transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+    .nav a:hover,
+    .nav a.is-active {
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--text);
+      transform: translateY(-1px);
+    }
+    .search-shell {
+      position: relative;
+      z-index: 1001;
+      width: min(280px, 100%);
+      flex: 0 1 280px;
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 999px;
       background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(75, 112, 146, 0.14);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    }
+    .search-box svg {
+      width: 16px;
+      height: 16px;
+      color: var(--muted);
+      flex: 0 0 16px;
+    }
+    .search-input {
+      width: 100%;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: var(--text);
+      font: inherit;
+    }
+    .search-results {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      width: 100%;
+      display: none;
+      padding: 10px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(75, 112, 146, 0.14);
+      box-shadow: 0 18px 40px rgba(70, 103, 136, 0.14);
+      backdrop-filter: blur(18px);
+      z-index: 1002;
+    }
+    .search-results.is-visible {
+      display: grid;
+      gap: 8px;
+    }
+    .search-result-item {
+      display: block;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(246, 250, 255, 0.96), rgba(235, 245, 255, 0.88));
+      border: 1px solid transparent;
+    }
+    .search-result-title {
+      display: block;
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+    .search-result-text,
+    .search-empty,
+    .meta,
+    .content-card p,
+    .footer {
+      color: var(--muted);
+    }
+    .search-result-text,
+    .search-empty,
+    .content-card p {
+      line-height: 1.8;
+    }
+    .search-empty {
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(244, 249, 255, 0.88);
+    }
+    .card {
+      background: var(--panel);
       border: 1px solid rgba(255, 255, 255, 0.72);
-      border-radius: 28px;
-      box-shadow: 0 18px 50px rgba(70, 103, 136, 0.12);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
       backdrop-filter: blur(16px);
       padding: 34px;
     }
-    h1 { margin: 0 0 10px; font-size: clamp(2rem, 4vw, 3rem); }
-    .meta, p { color: #607387; line-height: 1.9; }
-    .meta { margin-bottom: 22px; }
-    a {
+    .card + .card {
+      margin-top: 22px;
+    }
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(2rem, 4vw, 3rem);
+    }
+    h2 {
+      margin: 0 0 12px;
+      font-size: 1.25rem;
+    }
+    .meta {
+      margin-bottom: 22px;
+      font-size: 0.95rem;
+    }
+    .eyebrow {
       display: inline-flex;
-      margin-top: 10px;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      margin-bottom: 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.68);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    }
+    .action-link {
+      display: inline-flex;
+      margin-top: 12px;
       padding: 12px 16px;
       border-radius: 999px;
-      color: #203042;
-      text-decoration: none;
-      font-weight: 600;
       background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(240, 248, 255, 0.88));
-      border: 1px solid rgba(75, 112, 146, 0.16);
+      border: 1px solid var(--line);
+      color: var(--text);
+      font-weight: 600;
+    }
+    .search-target.is-highlighted {
+      scroll-margin-top: 96px;
+      box-shadow: 0 0 0 2px rgba(110, 174, 219, 0.25), var(--shadow);
+      transition: box-shadow 0.25s ease;
+    }
+    .footer {
+      margin-top: 16px;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+    @media (max-width: 980px) {
+      .topbar-right {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .search-shell {
+        width: 100%;
+        flex-basis: auto;
+      }
+    }
+    @media (max-width: 640px) {
+      .page {
+        width: min(calc(100% - 20px), var(--content-width));
+        padding-top: 18px;
+        padding-bottom: 40px;
+      }
+      .topbar {
+        flex-direction: column;
+        border-radius: 28px;
+        align-items: flex-start;
+      }
+      .card {
+        padding: 22px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="page">
-    <article class="card">
+    <header class="topbar">
+      <div class="brand">Personal Homepage</div>
+      <div class="topbar-right">
+        <nav class="nav">
+          <a href="../index.html">首页</a>
+          <a href="../notes.html">笔记</a>
+          <a href="../blog.html" class="is-active">Blog</a>
+          <a href="../code.html">代码</a>
+        </nav>
+        <div class="search-shell">
+          <label class="search-box" for="site-search">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="7"></circle>
+              <path d="m20 20-3.5-3.5"></path>
+            </svg>
+            <input class="search-input" id="site-search" type="search" placeholder="搜索本页内容或跳转点">
+          </label>
+          <div class="search-results" id="search-results" aria-live="polite"></div>
+        </div>
+      </div>
+    </header>
+
+    <article class="card search-target" id="study-main" data-search-title="最近在学什么" data-search-text="学习记录 blog 示例文章 学习过程">
+      <div class="eyebrow">Study Log</div>
       <h1>最近在学什么</h1>
       <div class="meta">2026-07-08 · 学习记录 · 示例文章</div>
       <p>这是第二篇示例文章，用来说明 `blog/` 目录中可以放多篇独立文章。</p>
       <p>如果你不想每次都重新写完整样式，也可以把这页复制一份，然后只改标题、日期和正文。</p>
-      <a href="../blog.html">返回 Blog 列表</a>
     </article>
+
+    <section class="card search-target" id="study-notes" data-search-title="更新建议" data-search-text="复制模板 修改标题 日期 正文 内容更新">
+      <h2>更新建议</h2>
+      <p>如果以后你有更多文章，最省事的方式是把这一页当作模板复制，再修改标题、时间、摘要和正文内容。</p>
+      <a class="action-link" href="../blog.html">返回 Blog 列表</a>
+    </section>
+
+    <footer class="footer">
+      <p>© 2026 源远流长. Example Blog Post.</p>
+    </footer>
   </div>
+
+  <script>
+    const searchInput = document.getElementById("site-search");
+    const searchResults = document.getElementById("search-results");
+    const searchTargets = Array.from(document.querySelectorAll("[data-search-title]"));
+
+    function clearHighlights() {
+      document.querySelectorAll(".search-target.is-highlighted").forEach((item) => {
+        item.classList.remove("is-highlighted");
+      });
+    }
+
+    function openSearchResults(items, keyword) {
+      if (!keyword) {
+        searchResults.classList.remove("is-visible");
+        searchResults.innerHTML = "";
+        return;
+      }
+      if (!items.length) {
+        searchResults.innerHTML = '<div class="search-empty">没有找到相关内容，可以试试“学习”“模板”“正文”等关键词。</div>';
+        searchResults.classList.add("is-visible");
+        return;
+      }
+      searchResults.innerHTML = items.map((item) => `
+        <a class="search-result-item" href="#${item.id}" data-target="${item.id}">
+          <span class="search-result-title">${item.title}</span>
+          <span class="search-result-text">${item.text}</span>
+        </a>
+      `).join("");
+      searchResults.classList.add("is-visible");
+    }
+
+    const searchIndex = searchTargets.map((node, index) => {
+      if (!node.id) node.id = `search-item-${index}`;
+      return {
+        id: node.id,
+        title: node.dataset.searchTitle || "页面内容",
+        text: node.dataset.searchText || node.textContent.replace(/\s+/g, " ").trim().slice(0, 80),
+        node
+      };
+    });
+
+    searchInput.addEventListener("input", (event) => {
+      const keyword = event.target.value.trim().toLowerCase();
+      clearHighlights();
+      if (!keyword) {
+        openSearchResults([], "");
+        return;
+      }
+      const matches = searchIndex.filter((item) => `${item.title} ${item.text}`.toLowerCase().includes(keyword)).slice(0, 8);
+      openSearchResults(matches, keyword);
+    });
+
+    searchResults.addEventListener("click", (event) => {
+      const target = event.target.closest("[data-target]");
+      if (!target) return;
+      event.preventDefault();
+      const node = document.getElementById(target.dataset.target);
+      if (!node) return;
+      clearHighlights();
+      node.classList.add("is-highlighted");
+      node.scrollIntoView({ behavior: "smooth", block: "start" });
+      searchResults.classList.remove("is-visible");
+      window.setTimeout(() => node.classList.remove("is-highlighted"), 2200);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!event.target.closest(".search-shell")) {
+        searchResults.classList.remove("is-visible");
+      }
+    });
+  </script>
 </body>
 </html>
