@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog | 源远流长</title>
+  <style>
+    :root {
+      --bg: #eef6ff;
+      --bg-soft: #f7fbff;
+      --panel: rgba(255, 255, 255, 0.78);
+      --panel-strong: rgba(255, 255, 255, 0.92);
+      --text: #203042;
+      --muted: #607387;
+      --line: rgba(75, 112, 146, 0.16);
+      --accent: #6eaedb;
+      --accent-2: #95c8c6;
+      --accent-3: #b7d9f4;
+      --shadow: 0 18px 50px rgba(70, 103, 136, 0.12);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --content-width: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(110, 174, 219, 0.24), transparent 28%),
+        radial-gradient(circle at top right, rgba(149, 200, 198, 0.18), transparent 24%),
+        radial-gradient(circle at 50% 120%, rgba(183, 217, 244, 0.24), transparent 34%),
+        linear-gradient(180deg, #fbfdff 0%, #eef6ff 42%, #e4f0fb 100%);
+      min-height: 100vh;
+    }
+    a { color: inherit; text-decoration: none; }
+    .page {
+      width: min(calc(100% - 32px), var(--content-width));
+      margin: 0 auto;
+      padding: 28px 0 56px;
+    }
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 26px;
+      padding: 14px 18px;
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      border-radius: 999px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 10px 30px rgba(70, 103, 136, 0.08);
+    }
+    .brand {
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .nav a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: var(--muted);
+      transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+    .nav a:hover,
+    .nav a.is-active {
+      background: rgba(255, 255, 255, 0.78);
+      color: var(--text);
+      transform: translateY(-1px);
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 24px;
+      margin-bottom: 26px;
+    }
+    .intro,
+    .panel {
+      padding: 30px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      margin-bottom: 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.68);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    }
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+    .lead,
+    .panel-text,
+    .entry-meta,
+    .entry-desc,
+    .footer {
+      color: var(--muted);
+    }
+    .lead,
+    .panel-text,
+    .entry-desc {
+      line-height: 1.8;
+    }
+    .button-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 140px;
+      padding: 14px 18px;
+      border-radius: 999px;
+      font-weight: 600;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .button.primary {
+      color: #fffaf5;
+      background: linear-gradient(135deg, #63a6d7, #8fc3ea 55%, #a8d6f3);
+      box-shadow: 0 12px 30px rgba(110, 174, 219, 0.3);
+    }
+    .button.secondary {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(240, 248, 255, 0.88));
+      border: 1px solid var(--line);
+      color: var(--text);
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 20px;
+    }
+    .stat {
+      padding: 18px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(236, 246, 255, 0.9));
+      border: 1px solid var(--line);
+    }
+    .stat strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1.5rem;
+    }
+    .list-section {
+      display: grid;
+      gap: 18px;
+    }
+    .section-title {
+      margin: 0 0 4px;
+      font-size: 1.3rem;
+    }
+    .entry-list {
+      display: grid;
+      gap: 18px;
+    }
+    .entry {
+      padding: 24px 26px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(235, 245, 255, 0.76));
+      border: 1px solid var(--line);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .entry:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 34px rgba(70, 103, 136, 0.12);
+      border-color: rgba(110, 174, 219, 0.28);
+    }
+    .entry-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .entry h2 {
+      margin: 0;
+      font-size: 1.15rem;
+    }
+    .entry h2 a {
+      text-decoration: underline;
+      text-decoration-color: rgba(110, 174, 219, 0.35);
+      text-underline-offset: 4px;
+    }
+    .tag {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.86);
+      color: #3f6f95;
+      font-size: 0.88rem;
+      white-space: nowrap;
+    }
+    .entry-meta {
+      margin-bottom: 10px;
+      font-size: 0.92rem;
+    }
+    .footer {
+      margin-top: 16px;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+    @media (max-width: 920px) {
+      .hero { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .page { width: min(calc(100% - 20px), var(--content-width)); padding-top: 18px; padding-bottom: 40px; }
+      .topbar { border-radius: 28px; padding: 16px; align-items: flex-start; flex-direction: column; }
+      .intro, .panel, .entry { padding: 22px; }
+      .entry-top { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">Personal Homepage</div>
+      <nav class="nav">
+        <a href="index.html">首页</a>
+        <a href="blog.html" class="is-active">Blog</a>
+        <a href="code.html">代码</a>
+        <a href="notes.html">笔记</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="card intro">
+          <div class="eyebrow">Blog Archive</div>
+          <h1>文章与更新列表</h1>
+          <p class="lead">
+            这一页用于集中展示博客文章、阶段总结、随笔与项目记录。整体顶部结构与主站保持一致，
+            访问者可以从首页自然切换到更完整的内容归档。
+          </p>
+          <div class="button-row">
+            <a class="button primary" href="index.html">返回首页</a>
+            <a class="button secondary" href="#post-list">查看列表</a>
+          </div>
+          <div class="stats">
+            <div class="stat">
+              <strong>03</strong>
+              <span>推荐置顶文章</span>
+            </div>
+            <div class="stat">
+              <strong>持续</strong>
+              <span>适合记录阶段进展</span>
+            </div>
+            <div class="stat">
+              <strong>统一</strong>
+              <span>保留主页的浅蓝主题</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="card panel">
+          <h2 class="section-title">这一页适合放什么</h2>
+          <p class="panel-text">
+            可以按时间倒序列出文章，也可以按主题拆成研究、生活、项目日志等栏目。如果之后你接入真正的博客系统，
+            这个页面也可以先作为静态入口页继续保留。
+          </p>
+        </aside>
+      </section>
+
+      <section class="list-section" id="post-list">
+        <div class="card panel">
+          <h2 class="section-title">最新文章</h2>
+          <p class="panel-text">现在已经改成“列表页 + 子目录文章页”的结构。以后新增文章时，只需要在 `blog/` 目录放一篇新 HTML，再在这里补一个链接。</p>
+        </div>
+
+        <div class="entry-list">
+          <article class="entry">
+            <div class="entry-top">
+              <h2><a href="blog/welcome-post.html">从主页到完整内容站点的第一步</a></h2>
+              <span class="tag">置顶文章</span>
+            </div>
+            <div class="entry-meta">2026-07-21 · 页面设计 · 建站记录</div>
+            <p class="entry-desc">
+              记录个人主页从单页结构扩展到多页结构时的设计取舍，包括导航方式、内容归类以及视觉一致性的处理。
+            </p>
+          </article>
+
+          <article class="entry">
+            <div class="entry-top">
+              <h2><a href="blog/study-log.html">最近在学什么</a></h2>
+              <span class="tag">随笔</span>
+            </div>
+            <div class="entry-meta">2026-07-08 · 项目总结 · 学习过程</div>
+            <p class="entry-desc">
+              适合写当前项目的阶段性总结、踩坑记录、方法比较，或者想保留下来的临时想法。
+            </p>
+          </article>
+
+          <article class="entry">
+            <div class="entry-top">
+              <h2><a href="blog/welcome-post.html">一篇阅读笔记如何整理成公开文章</a></h2>
+              <span class="tag">方法记录</span>
+            </div>
+            <div class="entry-meta">2026-06-26 · 阅读整理 · 输出方法</div>
+            <p class="entry-desc">
+              适合放论文阅读、书籍摘记或技术文章摘要，后续也可以跳转到更长的正文页面。
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>© 2026 源远流长. Blog List Page.</p>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>笔记 | 源远流长</title>
+  <style>
+    :root {
+      --bg: #eef6ff;
+      --panel: rgba(255, 255, 255, 0.78);
+      --text: #203042;
+      --muted: #607387;
+      --line: rgba(75, 112, 146, 0.16);
+      --accent: #6eaedb;
+      --accent-2: #95c8c6;
+      --shadow: 0 18px 50px rgba(70, 103, 136, 0.12);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --content-width: 1120px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(110, 174, 219, 0.24), transparent 28%),
+        radial-gradient(circle at top right, rgba(149, 200, 198, 0.18), transparent 24%),
+        radial-gradient(circle at 50% 120%, rgba(183, 217, 244, 0.24), transparent 34%),
+        linear-gradient(180deg, #fbfdff 0%, #eef6ff 42%, #e4f0fb 100%);
+      min-height: 100vh;
+    }
+    a { color: inherit; text-decoration: none; }
+    .page {
+      width: min(calc(100% - 32px), var(--content-width));
+      margin: 0 auto;
+      padding: 28px 0 56px;
+    }
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 26px;
+      padding: 14px 18px;
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      border-radius: 999px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 10px 30px rgba(70, 103, 136, 0.08);
+    }
+    .brand {
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .nav a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: var(--muted);
+      transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+    .nav a:hover,
+    .nav a.is-active {
+      background: rgba(255, 255, 255, 0.78);
+      color: var(--text);
+      transform: translateY(-1px);
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 24px;
+      margin-bottom: 26px;
+    }
+    .intro,
+    .panel,
+    .note-group,
+    .note {
+      padding: 30px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      margin-bottom: 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.68);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    }
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+    .lead,
+    .panel-text,
+    .note-meta,
+    .note-desc,
+    .footer {
+      color: var(--muted);
+    }
+    .lead,
+    .panel-text,
+    .note-desc {
+      line-height: 1.8;
+    }
+    .button-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 140px;
+      padding: 14px 18px;
+      border-radius: 999px;
+      font-weight: 600;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .button.primary {
+      color: #fffaf5;
+      background: linear-gradient(135deg, #63a6d7, #8fc3ea 55%, #a8d6f3);
+      box-shadow: 0 12px 30px rgba(110, 174, 219, 0.3);
+    }
+    .button.secondary {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(240, 248, 255, 0.88));
+      border: 1px solid var(--line);
+      color: var(--text);
+    }
+    .section-title {
+      margin: 0 0 4px;
+      font-size: 1.3rem;
+    }
+    .notes-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+    .note-group {
+      border-radius: var(--radius-xl);
+    }
+    .note-list {
+      display: grid;
+      gap: 16px;
+      margin-top: 18px;
+    }
+    .note {
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(235, 245, 255, 0.76));
+      border: 1px solid var(--line);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .note:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 34px rgba(70, 103, 136, 0.12);
+      border-color: rgba(110, 174, 219, 0.28);
+    }
+    .note h2 {
+      margin: 0 0 10px;
+      font-size: 1.08rem;
+    }
+    .note h2 a {
+      text-decoration: underline;
+      text-decoration-color: rgba(110, 174, 219, 0.35);
+      text-underline-offset: 4px;
+    }
+    .note-meta {
+      margin-bottom: 8px;
+      font-size: 0.92rem;
+    }
+    .footer {
+      margin-top: 16px;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+    @media (max-width: 920px) {
+      .hero,
+      .notes-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .page { width: min(calc(100% - 20px), var(--content-width)); padding-top: 18px; padding-bottom: 40px; }
+      .topbar { border-radius: 28px; padding: 16px; align-items: flex-start; flex-direction: column; }
+      .intro, .panel, .note-group, .note { padding: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">Personal Homepage</div>
+      <nav class="nav">
+        <a href="index.html">首页</a>
+        <a href="blog.html">Blog</a>
+        <a href="code.html">代码</a>
+        <a href="notes.html" class="is-active">笔记</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="card intro">
+          <div class="eyebrow">Notes Archive</div>
+          <h1>笔记与整理列表</h1>
+          <p class="lead">
+            这一页适合放课程笔记、论文摘录、知识卡片和技术备忘。相比 Blog 页，它更适合高频、结构化、可快速检索的内容。
+          </p>
+          <div class="button-row">
+            <a class="button primary" href="index.html">返回首页</a>
+            <a class="button secondary" href="#notes-grid">查看分类</a>
+          </div>
+        </div>
+
+        <aside class="card panel">
+          <h2 class="section-title">推荐分类方式</h2>
+          <p class="panel-text">
+            可以按课程、主题、论文方向或工具栈进行分组。当前先示例为“学习笔记”和“技术备忘”两栏，后面你可以继续拆分。
+          </p>
+        </aside>
+      </section>
+
+      <section class="notes-grid" id="notes-grid">
+        <div class="card note-group">
+          <h2 class="section-title">学习笔记</h2>
+          <div class="note-list">
+            <article class="note">
+              <h2><a href="notes/ml-course-summary.html">机器学习课程重点整理</a></h2>
+              <div class="note-meta">课程笔记 · 公式推导 · 易错点</div>
+              <p class="note-desc">
+                适合收纳课程中的关键定义、常见证明思路和考试前速查内容。
+              </p>
+            </article>
+
+            <article class="note">
+              <h2><a href="notes/paper-reading-template.html">论文阅读模板与摘要规范</a></h2>
+              <div class="note-meta">阅读笔记 · 结构化输出</div>
+              <p class="note-desc">
+                适合统一记录论文问题定义、方法概述、实验设置以及你自己的判断。
+              </p>
+            </article>
+          </div>
+        </div>
+
+        <div class="card note-group">
+          <h2 class="section-title">技术备忘</h2>
+          <div class="note-list">
+            <article class="note">
+              <h2>Git / GitHub 常用操作清单</h2>
+              <div class="note-meta">工具备忘 · 命令速查</div>
+              <p class="note-desc">
+                可以把高频命令、分支协作流程和常见问题修复方式整理成一页。
+              </p>
+            </article>
+
+            <article class="note">
+              <h2>网页样式与组件复用规则</h2>
+              <div class="note-meta">前端整理 · 主题维护</div>
+              <p class="note-desc">
+                适合记录颜色变量、按钮样式、卡片布局规范，便于后续扩展时保持整站风格一致。
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>© 2026 源远流长. Notes List Page.</p>
+    </footer>
+  </div>
+</body>
+</html>

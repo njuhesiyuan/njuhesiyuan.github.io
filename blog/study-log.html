@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>最近在学什么 | Blog</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      color: #203042;
+      background:
+        radial-gradient(circle at top left, rgba(110, 174, 219, 0.24), transparent 28%),
+        radial-gradient(circle at top right, rgba(149, 200, 198, 0.18), transparent 24%),
+        linear-gradient(180deg, #fbfdff 0%, #eef6ff 42%, #e4f0fb 100%);
+    }
+    .page {
+      width: min(calc(100% - 32px), 860px);
+      margin: 0 auto;
+      padding: 28px 0 56px;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      border-radius: 28px;
+      box-shadow: 0 18px 50px rgba(70, 103, 136, 0.12);
+      backdrop-filter: blur(16px);
+      padding: 34px;
+    }
+    h1 { margin: 0 0 10px; font-size: clamp(2rem, 4vw, 3rem); }
+    .meta, p { color: #607387; line-height: 1.9; }
+    .meta { margin-bottom: 22px; }
+    a {
+      display: inline-flex;
+      margin-top: 10px;
+      padding: 12px 16px;
+      border-radius: 999px;
+      color: #203042;
+      text-decoration: none;
+      font-weight: 600;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(240, 248, 255, 0.88));
+      border: 1px solid rgba(75, 112, 146, 0.16);
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <article class="card">
+      <h1>最近在学什么</h1>
+      <div class="meta">2026-07-08 · 学习记录 · 示例文章</div>
+      <p>这是第二篇示例文章，用来说明 `blog/` 目录中可以放多篇独立文章。</p>
+      <p>如果你不想每次都重新写完整样式，也可以把这页复制一份，然后只改标题、日期和正文。</p>
+      <a href="../blog.html">返回 Blog 列表</a>
+    </article>
+  </div>
+</body>
+</html>

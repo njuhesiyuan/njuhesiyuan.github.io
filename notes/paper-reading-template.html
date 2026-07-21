@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>论文阅读模板与摘要规范 | 笔记</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      color: #203042;
+      background:
+        radial-gradient(circle at top left, rgba(110, 174, 219, 0.24), transparent 28%),
+        radial-gradient(circle at top right, rgba(149, 200, 198, 0.18), transparent 24%),
+        linear-gradient(180deg, #fbfdff 0%, #eef6ff 42%, #e4f0fb 100%);
+    }
+    .page {
+      width: min(calc(100% - 32px), 860px);
+      margin: 0 auto;
+      padding: 28px 0 56px;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      border-radius: 28px;
+      box-shadow: 0 18px 50px rgba(70, 103, 136, 0.12);
+      backdrop-filter: blur(16px);
+      padding: 34px;
+    }
+    h1 { margin: 0 0 10px; font-size: clamp(2rem, 4vw, 3rem); }
+    .meta, p { color: #607387; line-height: 1.9; }
+    .meta { margin-bottom: 22px; }
+    a {
+      display: inline-flex;
+      margin-top: 10px;
+      padding: 12px 16px;
+      border-radius: 999px;
+      color: #203042;
+      text-decoration: none;
+      font-weight: 600;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(240, 248, 255, 0.88));
+      border: 1px solid rgba(75, 112, 146, 0.16);
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <article class="card">
+      <h1>论文阅读模板与摘要规范</h1>
+      <div class="meta">阅读笔记 · 示例页面</div>
+      <p>这是一份阅读模板示例。以后你可以把每篇论文的阅读内容放成一个独立页面，比如 `notes/some-paper.html`。</p>
+      <p>然后在 `notes.html` 中给出标题、分类和一句摘要，点击后跳到具体笔记。</p>
+      <a href="../notes.html">返回笔记列表</a>
+    </article>
+  </div>
+</body>
+</html>
