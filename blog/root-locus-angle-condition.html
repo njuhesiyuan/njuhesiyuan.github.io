@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="从复数相角出发，推导根轨迹的相角条件、出射角与入射角。">
+  <title>根轨迹相角条件、入射角和出射角的计算问题 | Blog</title>
+  <link rel="stylesheet" href="../simple.css?v=20261027-16">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [["\\(", "\\)"]],
+        displayMath: [["\\[", "\\]"]]
+      },
+      svg: {
+        fontCache: "global"
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">Personal Homepage</div>
+      <div class="topbar-right">
+        <nav class="nav">
+          <a href="../index.html">首页</a>
+          <a href="../notes.html">笔记</a>
+          <a href="../blog.html" class="is-active">Blog</a>
+          <a href="../code.html">代码</a>
+        </nav>
+        <div class="search-shell">
+          <label class="search-box" for="site-search">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="7"></circle>
+              <path d="m20 20-3.5-3.5"></path>
+            </svg>
+            <input class="search-input" id="site-search" type="search" placeholder="搜索本页内容或跳转点">
+          </label>
+          <div class="search-results" id="search-results" aria-live="polite"></div>
+        </div>
+      </div>
+    </header>
+
+    <article class="card article-card article-reading search-target" id="article-main" data-search-title="根轨迹相角条件、入射角和出射角" data-search-text="控制理论 根轨迹 相角条件 入射角 出射角 复数 零点 极点">
+      <div class="eyebrow">Control Theory · Blog Post</div>
+      <h1>根轨迹相角条件、入射角和出射角的计算问题</h1>
+      <div class="meta">2024-11-08 · 控制理论 · 根轨迹</div>
+
+      <p class="article-lead">
+        在学习根轨迹绘制时，很多教材只给出计算公式，对相角条件和入射角、出射角的几何含义讲得比较简略。
+        本文从复数的相角表示出发，把这些公式重新推导一遍。
+      </p>
+
+      <p class="source-note">
+        本文整理自我在 CSDN 发布的
+        <a href="https://blog.csdn.net/qq_74455464/article/details/143625464" target="_blank" rel="noreferrer">同名文章</a>。
+        站内版本重新整理了标题层级、公式和配图。
+      </p>
+
+      <nav class="article-toc" aria-label="文章目录">
+        <strong>本文目录</strong>
+        <ol>
+          <li><a href="#complex-angle">复数的相角表示</a></li>
+          <li><a href="#angle-condition">根轨迹相角条件</a></li>
+          <li><a href="#departure-arrival">出射角与入射角</a></li>
+          <li><a href="#summary">结论速查</a></li>
+        </ol>
+      </nav>
+
+      <div class="article-body">
+        <section class="article-section search-target" id="complex-angle" data-search-title="复数的相角表示" data-search-text="复数 实部 虚部 相角 幅值 欧拉公式 乘积 相除">
+          <h2>1. 复数的相角表示</h2>
+          <p>设有复数 \(z=a+bi\)，其中 \(a\) 为实部、\(b\) 为虚部，则</p>
+          <div class="math-block">
+            \[
+            z=a+bi=r(\cos\theta+i\sin\theta)=re^{i\theta}
+            \]
+          </div>
+          <p>
+            其中 \(r\) 是幅值，\(\theta\) 是相角。在复平面上，\(\theta\) 可以表示为由原点指向
+            \(z\) 的向量与实轴正方向之间的夹角。
+          </p>
+          <p>考虑两个复数 \(z_1,z_2\)，则</p>
+          <div class="math-block">
+            \[
+            z_1z_2=r_1r_2e^{i(\theta_1+\theta_2)},\qquad
+            \frac{z_1}{z_2}=\frac{r_1}{r_2}e^{i(\theta_1-\theta_2)}
+            \]
+          </div>
+          <p>两个复数相乘时，结果的相角等于两者相角之和；两个复数相除时，结果的相角等于两者相角之差。</p>
+          <p>同时</p>
+          <div class="math-block">
+            \[
+            z_1-z_2=(a_1-a_2)+(b_1-b_2)i
+            \]
+          </div>
+          <p>
+            因此，\(z_1-z_2\) 对应一个从 \(z_2\) 指向 \(z_1\) 的向量。它的相角
+            \(\angle(z_1-z_2)\) 就是该向量与实轴正方向之间的夹角。这个观察是理解根轨迹相角条件的关键。
+          </p>
+        </section>
+
+        <section class="article-section search-target" id="angle-condition" data-search-title="根轨迹相角条件" data-search-text="特征方程 开环传递函数 相角条件 零点 极点 奇数倍 180 度">
+          <h2>2. 根轨迹相角条件</h2>
+          <p>考虑一个带有增益 \(K\) 的反馈系统：</p>
+          <figure class="article-figure">
+            <img src="./assets/143625464/system-block-diagram.png" alt="带有增益 K 的反馈系统结构图" width="909" height="306">
+            <figcaption>增益为 \(K\) 的反馈系统结构。</figcaption>
+          </figure>
+
+          <p>闭环特征方程为</p>
+          <div class="math-block">
+            \[
+            1+KG(s)H(s)=0
+            \]
+          </div>
+          <p>也就是</p>
+          <div class="math-block">
+            \[
+            KG(s)H(s)=-1
+            \]
+          </div>
+          <p>
+            复数 \(-1\) 的相角为 \((2k+1)\pi\)，因此根轨迹上的点必须满足相角条件
+          </p>
+          <div class="math-block">
+            \[
+            \angle KG(s)H(s)=180^\circ+k\,360^\circ
+            \]
+          </div>
+          <p>其中 \(k=0,1,2,\ldots,n-m-1\)。</p>
+
+          <p>设开环传递函数可以写成零极点形式</p>
+          <div class="math-block">
+            \[
+            KG(s)H(s)=
+            \frac{K(s+z_1)(s+z_2)\cdots(s+z_m)}
+            {(s+p_1)(s+p_2)\cdots(s+p_n)}
+            \]
+          </div>
+          <p>其中 \(z_i\) 为零点，\(p_i\) 为极点。由于乘积与相除分别对应相角的加减，所以</p>
+          <div class="math-block">
+            \[
+            \angle KG(s)H(s)
+            =\sum_{j=1}^{m}\angle(s-z_j)
+            -\sum_{i=1}^{n}\angle(s-p_i)
+            \]
+          </div>
+          <p>于是相角条件也可以写成</p>
+          <div class="math-block">
+            \[
+            \sum_{j=1}^{m}\phi_j-\sum_{i=1}^{n}\theta_i
+            =180^\circ+k\,360^\circ
+            \]
+          </div>
+          <div class="key-takeaway">
+            <span>直观理解</span>
+            <p>
+              根轨迹上的一点与各零点连线的相角之和，减去它与各极点连线的相角之和，
+              应当等于 \(180^\circ\) 的奇数倍。
+            </p>
+          </div>
+        </section>
+
+        <section class="article-section search-target" id="departure-arrival" data-search-title="出射角与入射角" data-search-text="出射角 入射角 极点 零点 切线 无限接近 根轨迹">
+          <h2>3. 出射角与入射角</h2>
+          <h3>3.1 出射角</h3>
+          <p>
+            现代控制理论教材通常把出射角定义为“相角差的主值”，这个说法不够直观。
+            从几何上看，出射角就是根轨迹离开极点时，极处切线与实轴正方向之间的夹角。
+          </p>
+
+          <figure class="article-figure article-figure--compact">
+            <img src="./assets/143625464/root-locus-angle.png" alt="根轨迹在极点附近的切线角示意图" width="316" height="310">
+            <figcaption>用趋近于极点的轨迹点描述出射方向。</figcaption>
+          </figure>
+
+          <p>
+            要求极点 \(p_1\) 处的出射角，可以在根轨迹上取一点 \(s_1\)，并让
+            \(s_1\) 无限接近 \(p_1\)。此时切线方向可以用 \(p_1s_1\) 与实轴正方向的夹角
+            \(\theta_1\) 表示，即
+          </p>
+          <div class="math-block">
+            \[
+            \angle(s_1-p_1)=\theta_1
+            \]
+          </div>
+
+          <p>因为 \(s_1\) 在根轨迹上，它满足相角条件：</p>
+          <div class="math-block">
+            \[
+            \sum_{j=1}^{m}\angle(s_1-z_j)
+            -\sum_{i=1}^{n}\angle(s_1-p_i)
+            =(2k+1)\pi
+            \]
+          </div>
+          <p>将与 \(p_1\) 对应的项移到一边，得到</p>
+          <div class="math-block">
+            \[
+            \angle(s_1-p_1)
+            =-(2k+1)\pi
+            +\sum_{j=1}^{m}\angle(s_1-z_j)
+            -\sum_{\substack{i=1\\i\neq1}}^{n}\angle(s_1-p_i)
+            \]
+          </div>
+          <p>令 \(s_1\to p_1\)，再把下标 \(1\) 换成一般的 \(r\)，便得到极点 \(p_r\) 处的出射角：</p>
+          <div class="math-block">
+            \[
+            \theta_r
+            =(2k+1)\pi
+            +\sum_{j=1}^{m}\angle(p_r-z_j)
+            -\sum_{\substack{i=1\\i\neq r}}^{n}\angle(p_r-p_i)
+            \]
+          </div>
+          <p>其中 \(k=0,\pm1,\pm2,\ldots\)。实际计算时，通常取相角的主值。</p>
+
+          <h3>3.2 入射角</h3>
+          <p>同理，可以从零点 \(z_r\) 出发考察根轨迹到达零点时的方向，得到入射角</p>
+          <div class="math-block">
+            \[
+            \phi_r
+            =(2k+1)\pi
+            -\sum_{\substack{j=1\\j\neq r}}^{m}\angle(z_r-z_j)
+            +\sum_{i=1}^{n}\angle(z_r-p_i)
+            \]
+          </div>
+          <p>
+            出射角描述根轨迹如何离开极点，入射角描述根轨迹如何进入零点。
+            两者都可以由同一条相角条件推出，区别只在于考察点分别趋近于极点或零点。
+          </p>
+        </section>
+
+        <section class="article-section search-target" id="summary" data-search-title="根轨迹公式速查" data-search-text="相角条件 出射角 入射角 公式 速查">
+          <h2>4. 结论速查</h2>
+          <div class="formula-summary">
+            <div>
+              <span>相角条件</span>
+              <p>
+                \[
+                \sum_{j=1}^{m}\angle(s-z_j)
+                -\sum_{i=1}^{n}\angle(s-p_i)
+                =180^\circ+k\,360^\circ
+                \]
+              </p>
+            </div>
+            <div>
+              <span>极点出射角</span>
+              <p>
+                \[
+                \theta_r
+                =(2k+1)\pi
+                +\sum_{j=1}^{m}\angle(p_r-z_j)
+                -\sum_{\substack{i=1\\i\neq r}}^{n}\angle(p_r-p_i)
+                \]
+              </p>
+            </div>
+            <div>
+              <span>零点入射角</span>
+              <p>
+                \[
+                \phi_r
+                =(2k+1)\pi
+                -\sum_{\substack{j=1\\j\neq r}}^{m}\angle(z_r-z_j)
+                +\sum_{i=1}^{n}\angle(z_r-p_i)
+                \]
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="article-section search-target" id="references" data-search-title="参考资料" data-search-text="南京大学 控制理论 现代控制理论 第十二版">
+          <h2>参考资料</h2>
+          <ol class="article-references">
+            <li>南京大学控制理论课程。</li>
+            <li>《现代控制理论》，第十二版。</li>
+          </ol>
+          <p class="article-ending">如有错误，欢迎指正。</p>
+        </section>
+      </div>
+
+      <div class="action-row article-actions">
+        <a class="action-link" href="../blog.html">返回 Blog 列表</a>
+        <a class="action-link" href="https://blog.csdn.net/qq_74455464/article/details/143625464" target="_blank" rel="noreferrer">阅读 CSDN 原文</a>
+        <a class="action-link" href="../index.html">返回首页</a>
+      </div>
+    </article>
+
+    <footer class="footer">
+      <p>© 2026 源远流长. Control Theory Notes.</p>
+    </footer>
+  </div>
+
+  <script>
+    const searchInput = document.getElementById("site-search");
+    const searchResults = document.getElementById("search-results");
+    const searchTargets = Array.from(document.querySelectorAll("[data-search-title]"));
+
+    function clearHighlights() {
+      document.querySelectorAll(".search-target.is-highlighted").forEach((item) => {
+        item.classList.remove("is-highlighted");
+      });
+    }
+
+    function openSearchResults(items, keyword) {
+      if (!keyword) {
+        searchResults.classList.remove("is-visible");
+        searchResults.innerHTML = "";
+        return;
+      }
+
+      if (!items.length) {
+        searchResults.innerHTML = '<div class="search-empty">没有找到相关内容，可以试试“相角”“出射角”“根轨迹”等关键词。</div>';
+        searchResults.classList.add("is-visible");
+        return;
+      }
+
+      searchResults.innerHTML = items.map((item) => `
+        <a class="search-result-item" href="#${item.id}" data-target="${item.id}">
+          <span class="search-result-title">${item.title}</span>
+          <span class="search-result-text">${item.text}</span>
+        </a>
+      `).join("");
+      searchResults.classList.add("is-visible");
+    }
+
+    const searchIndex = searchTargets.map((node) => ({
+      id: node.id,
+      title: node.dataset.searchTitle || "页面内容",
+      text: node.dataset.searchText || node.textContent.replace(/\s+/g, " ").trim().slice(0, 80),
+      node
+    })).filter((item) => item.id);
+
+    searchInput.addEventListener("input", (event) => {
+      const keyword = event.target.value.trim().toLowerCase();
+      clearHighlights();
+
+      if (!keyword) {
+        openSearchResults([], "");
+        return;
+      }
+
+      const matches = searchIndex.filter((item) => {
+        const haystack = `${item.title} ${item.text}`.toLowerCase();
+        return haystack.includes(keyword);
+      }).slice(0, 8);
+
+      openSearchResults(matches, keyword);
+    });
+
+    searchResults.addEventListener("click", (event) => {
+      const target = event.target.closest("[data-target]");
+      if (!target) return;
+
+      event.preventDefault();
+      const id = target.dataset.target;
+      const node = document.getElementById(id);
+      if (!node) return;
+
+      clearHighlights();
+      node.classList.add("is-highlighted");
+      node.scrollIntoView({ behavior: "smooth", block: "start" });
+      searchResults.classList.remove("is-visible");
+
+      window.setTimeout(() => {
+        node.classList.remove("is-highlighted");
+      }, 2200);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!event.target.closest(".search-shell")) {
+        searchResults.classList.remove("is-visible");
+      }
+    });
+  </script>
+</body>
+</html>

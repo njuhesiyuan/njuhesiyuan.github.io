@@ -488,6 +488,7 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="simple.css?v=20261027-16">
 </head>
 <body>
   <div class="page">
@@ -525,20 +526,6 @@
             <a class="button primary" href="index.html">返回首页</a>
             <a class="button secondary" href="#post-list">查看列表</a>
           </div>
-          <div class="stats">
-            <div class="stat">
-              <strong>搜索</strong>
-              <span>按标题、摘要和标签查找</span>
-            </div>
-            <div class="stat">
-              <strong>分页</strong>
-              <span>支持上一页、下一页和页码跳转</span>
-            </div>
-            <div class="stat">
-              <strong>扩展</strong>
-              <span>适合后续持续增加文章数量</span>
-            </div>
-          </div>
         </div>
 
         <aside class="card panel search-target" id="blog-guide" data-search-title="Blog 使用说明" data-search-text="博客 使用说明 添加文章 子目录 blog">
@@ -549,6 +536,30 @@
         </aside>
       </section>
 
+      <section class="stats" aria-label="博客功能">
+        <div class="stat">
+          <span class="stat-index" aria-hidden="true">01</span>
+          <div class="stat-copy">
+            <strong>搜索</strong>
+            <span>按标题、摘要和标签查找</span>
+          </div>
+        </div>
+        <div class="stat">
+          <span class="stat-index" aria-hidden="true">02</span>
+          <div class="stat-copy">
+            <strong>分页</strong>
+            <span>支持上一页、下一页和页码跳转</span>
+          </div>
+        </div>
+        <div class="stat">
+          <span class="stat-index" aria-hidden="true">03</span>
+          <div class="stat-copy">
+            <strong>扩展</strong>
+            <span>适合后续持续增加文章数量</span>
+          </div>
+        </div>
+      </section>
+
       <section class="list-section" id="post-list">
         <div class="card panel search-target" id="post-archive" data-search-title="Blog 文章列表" data-search-text="文章列表 blog posts archive">
           <h2 class="section-title">最新文章</h2>
@@ -556,6 +567,17 @@
         </div>
 
         <div class="entry-list" id="paginated-list">
+          <article class="entry search-target" data-page-item data-search-title="根轨迹相角条件、入射角和出射角的计算问题" data-search-text="控制理论 根轨迹 相角条件 入射角 出射角 复数 零点 极点" data-search-link="blog/root-locus-angle-condition.html">
+            <div class="entry-top">
+              <h2><a href="blog/root-locus-angle-condition.html">根轨迹相角条件、入射角和出射角的计算问题</a></h2>
+              <span class="tag">控制理论</span>
+            </div>
+            <div class="entry-meta">2024-11-08 · 控制理论 · 根轨迹</div>
+            <p class="entry-desc">
+              从复数相角出发，推导根轨迹的相角条件，并给出极点出射角与零点入射角的计算方法。
+            </p>
+          </article>
+
           <article class="entry search-target" data-page-item data-search-title="从主页到完整内容站点的第一步" data-search-text="建站记录 页面设计 多页面结构 blog 文章" data-search-link="blog/welcome-post.html">
             <div class="entry-top">
               <h2><a href="blog/welcome-post.html">从主页到完整内容站点的第一步</a></h2>
